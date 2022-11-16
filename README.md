@@ -17,8 +17,7 @@ Easily send Exponent Notifications with Laravel notifier.
 You can publish the configuration file with:
 
 ```shell
-php artisan vendor:publish --tag="expo-notifications-config"
-php artisan vendor:publish --tag="expo-notifications-migration"
+php artisan vendor:publish --provider="YieldStudio\LaravelExpoNotifier\ExpoNotificationsServiceProvider" --tag="expo-notifications-config" --tag="expo-notifications-migration"
 ```
 
 ## Usage
