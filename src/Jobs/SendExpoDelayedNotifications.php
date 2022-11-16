@@ -4,9 +4,9 @@ namespace YieldStudio\LaravelExpoNotifications\Jobs;
 
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use YieldStudio\LaravelExpoNotifications\Contracts\NotificationInterface;
-use YieldStudio\LaravelExpoNotifications\Contracts\TicketStorageInterface;
-use YieldStudio\LaravelExpoNotifications\Contracts\TokenStorageInterface;
+use YieldStudio\LaravelExpoNotifications\Contracts\ExpoPendingNotificationStorageInterface;
+use YieldStudio\LaravelExpoNotifications\Contracts\ExpoTicketStorageInterface;
+use YieldStudio\LaravelExpoNotifications\Contracts\ExpoTokenStorageInterface;
 use YieldStudio\LaravelExpoNotifications\Services\Dto\ExpoMessage;
 use YieldStudio\LaravelExpoNotifications\Services\ExpoNotificationsService;
 
@@ -18,10 +18,10 @@ class SendExpoDelayedNotifications
     use Dispatchable, SerializesModels;
 
     public function handle(
-        ExpoNotificationsService $expoNotificationsService,
-        NotificationInterface    $expoNotification,
-        TokenStorageInterface    $tokenStorage,
-        TicketStorageInterface   $ticketStorage
+        ExpoNotificationsService                $expoNotificationsService,
+        ExpoPendingNotificationStorageInterface $expoNotification,
+        ExpoTokenStorageInterface               $tokenStorage,
+        ExpoTicketStorageInterface              $ticketStorage
     ): void
     {
         while ($expoNotification->total() > 0) {

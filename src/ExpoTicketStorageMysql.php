@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace YieldStudio\LaravelExpoNotifications;
 
 use Illuminate\Database\Eloquent\Collection;
-use YieldStudio\LaravelExpoNotifications\Contracts\TicketStorageInterface;
+use YieldStudio\LaravelExpoNotifications\Contracts\ExpoTicketStorageInterface;
 use YieldStudio\LaravelExpoNotifications\Models\ExpoTicket;
 
-final class TicketStorageMysql implements TicketStorageInterface
+final class ExpoTicketStorageMysql implements ExpoTicketStorageInterface
 {
     public function getByKey(string $key): ?ExpoTicket
     {

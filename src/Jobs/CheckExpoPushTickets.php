@@ -4,8 +4,8 @@ namespace YieldStudio\LaravelExpoNotifications\Jobs;
 
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use YieldStudio\LaravelExpoNotifications\Contracts\TicketStorageInterface;
-use YieldStudio\LaravelExpoNotifications\Contracts\TokenStorageInterface;
+use YieldStudio\LaravelExpoNotifications\Contracts\ExpoTicketStorageInterface;
+use YieldStudio\LaravelExpoNotifications\Contracts\ExpoTokenStorageInterface;
 use YieldStudio\LaravelExpoNotifications\Services\ExpoNotificationsService;
 
 class CheckExpoPushTickets
@@ -16,9 +16,9 @@ class CheckExpoPushTickets
     use Dispatchable, SerializesModels;
 
     public function handle(
-        ExpoNotificationsService $expoNotificationsService,
-        TicketStorageInterface   $ticketStorage,
-        TokenStorageInterface $tokenStorage
+        ExpoNotificationsService   $expoNotificationsService,
+        ExpoTicketStorageInterface $ticketStorage,
+        ExpoTokenStorageInterface $tokenStorage
     ): void
     {
         while ($ticketStorage->total() > 0) {

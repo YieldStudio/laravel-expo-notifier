@@ -2,7 +2,7 @@
 
 namespace YieldStudio\LaravelExpoNotifications\Contracts;
 
-interface NotificationInterface
+interface ExpoPendingNotificationStorageInterface
 {
     public function store(array $data);
 

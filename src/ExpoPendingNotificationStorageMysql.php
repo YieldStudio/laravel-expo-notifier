@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace YieldStudio\LaravelExpoNotifications;
 
 use Illuminate\Support\Collection;
-use YieldStudio\LaravelExpoNotifications\Contracts\NotificationInterface;
+use YieldStudio\LaravelExpoNotifications\Contracts\ExpoPendingNotificationStorageInterface;
 use YieldStudio\LaravelExpoNotifications\Models\ExpoNotification;
 use YieldStudio\LaravelExpoNotifications\Services\Dto\ExpoMessage;
 use YieldStudio\LaravelExpoNotifications\Services\Dto\ExpoNotification as ExpoNotificationDto;
 
-final class NotificationMysql implements NotificationInterface
+final class ExpoPendingNotificationStorageMysql implements ExpoPendingNotificationStorageInterface
 {
     public function store(array $data): ExpoNotification
     {

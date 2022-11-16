@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace YieldStudio\LaravelExpoNotifications\Contracts;
 
-interface TicketStorageInterface
+interface ExpoTicketStorageInterface
 {
     public function getByKey(string $key);
 

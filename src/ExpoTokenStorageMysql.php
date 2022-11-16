@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace YieldStudio\LaravelExpoNotifications;
 
-use YieldStudio\LaravelExpoNotifications\Contracts\TokenStorageInterface;
+use YieldStudio\LaravelExpoNotifications\Contracts\ExpoTokenStorageInterface;
 use YieldStudio\LaravelExpoNotifications\Models\ExpoToken;
 
-final class TokenStorageMysql implements TokenStorageInterface
+final class ExpoTokenStorageMysql implements ExpoTokenStorageInterface
 {
     public function getByKey(string $key): ?ExpoToken
     {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace YieldStudio\LaravelExpoNotifications\Contracts;
 
-interface TokenStorageInterface
+interface ExpoTokenStorageInterface
 {
     public function getByKey(string $key);
     public function getByValue(string $value);

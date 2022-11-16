@@ -1,14 +1,14 @@
 <?php
 
-use YieldStudio\LaravelExpoNotifications\TokenStorageMysql;
-use YieldStudio\LaravelExpoNotifications\TicketStorageMysql;
-use YieldStudio\LaravelExpoNotifications\NotificationMysql;
+use YieldStudio\LaravelExpoNotifications\ExpoTokenStorageMysql;
+use YieldStudio\LaravelExpoNotifications\ExpoTicketStorageMysql;
+use YieldStudio\LaravelExpoNotifications\ExpoPendingNotificationStorageMysql;
 
 return [
     'drivers' => [
-        'token' => TokenStorageMysql::class,
-        'ticket' => TicketStorageMysql::class,
-        'notification' => NotificationMysql::class,
+        'token' => ExpoTokenStorageMysql::class,
+        'ticket' => ExpoTicketStorageMysql::class,
+        'notification' => ExpoPendingNotificationStorageMysql::class,
     ],
     'database' => [
         'token_table_name' => 'expo_tokens',
