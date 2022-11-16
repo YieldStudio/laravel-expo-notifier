@@ -1,8 +1,8 @@
 <?php
 
-use YieldStudio\LaravelExpoNotifications\ExpoTokenStorageMysql;
-use YieldStudio\LaravelExpoNotifications\ExpoTicketStorageMysql;
-use YieldStudio\LaravelExpoNotifications\ExpoPendingNotificationStorageMysql;
+use YieldStudio\LaravelExpoNotifier\ExpoTokenStorageMysql;
+use YieldStudio\LaravelExpoNotifier\ExpoTicketStorageMysql;
+use YieldStudio\LaravelExpoNotifier\ExpoPendingNotificationStorageMysql;
 
 return [
     'drivers' => [

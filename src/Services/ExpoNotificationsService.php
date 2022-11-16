@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace YieldStudio\LaravelExpoNotifications\Services;
+namespace YieldStudio\LaravelExpoNotifier\Services;
 
 use Illuminate\Support\Facades\Http;
-use YieldStudio\LaravelExpoNotifications\Exceptions\ExpoNotificationsException;
+use YieldStudio\LaravelExpoNotifier\Exceptions\ExpoNotificationsException;
 
 final class ExpoNotificationsService
 {

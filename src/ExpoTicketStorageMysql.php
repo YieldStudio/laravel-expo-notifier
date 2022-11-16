@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace YieldStudio\LaravelExpoNotifications;
+namespace YieldStudio\LaravelExpoNotifier;
 
 use Illuminate\Database\Eloquent\Collection;
-use YieldStudio\LaravelExpoNotifications\Contracts\ExpoTicketStorageInterface;
-use YieldStudio\LaravelExpoNotifications\Models\ExpoTicket;
+use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTicketStorageInterface;
+use YieldStudio\LaravelExpoNotifier\Models\ExpoTicket;
 
 final class ExpoTicketStorageMysql implements ExpoTicketStorageInterface
 {

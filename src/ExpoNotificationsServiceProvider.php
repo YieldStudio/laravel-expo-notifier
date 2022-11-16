@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace YieldStudio\LaravelExpoNotifications;
+namespace YieldStudio\LaravelExpoNotifier;
 
-use YieldStudio\LaravelExpoNotifications\Commands\ExpoDelayedNotificationsSend;
-use YieldStudio\LaravelExpoNotifications\Commands\ExpoTicketsPurge;
-use YieldStudio\LaravelExpoNotifications\Contracts\ExpoPendingNotificationStorageInterface;
-use YieldStudio\LaravelExpoNotifications\Contracts\ExpoTicketStorageInterface;
-use YieldStudio\LaravelExpoNotifications\Contracts\ExpoTokenStorageInterface;
-use YieldStudio\LaravelExpoNotifications\Services\ExpoNotificationsService;
+use YieldStudio\LaravelExpoNotifier\Commands\ExpoDelayedNotificationsSend;
+use YieldStudio\LaravelExpoNotifier\Commands\ExpoTicketsPurge;
+use YieldStudio\LaravelExpoNotifier\Contracts\ExpoPendingNotificationStorageInterface;
+use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTicketStorageInterface;
+use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTokenStorageInterface;
+use YieldStudio\LaravelExpoNotifier\Services\ExpoNotificationsService;
 use Illuminate\Support\ServiceProvider;
 
 final class ExpoNotificationsServiceProvider extends ServiceProvider

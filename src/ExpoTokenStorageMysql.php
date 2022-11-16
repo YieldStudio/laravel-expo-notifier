@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace YieldStudio\LaravelExpoNotifications;
+namespace YieldStudio\LaravelExpoNotifier;
 
-use YieldStudio\LaravelExpoNotifications\Contracts\ExpoTokenStorageInterface;
-use YieldStudio\LaravelExpoNotifications\Models\ExpoToken;
+use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTokenStorageInterface;
+use YieldStudio\LaravelExpoNotifier\Models\ExpoToken;
 
 final class ExpoTokenStorageMysql implements ExpoTokenStorageInterface
 {

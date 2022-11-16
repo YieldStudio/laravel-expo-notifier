@@ -1,6 +1,6 @@
 <?php
 
-namespace YieldStudio\LaravelExpoNotifications\Contracts;
+namespace YieldStudio\LaravelExpoNotifier\Contracts;
 
 interface ExpoPendingNotificationStorageInterface
 {

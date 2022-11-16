@@ -1,12 +1,12 @@
 <?php
 
-namespace YieldStudio\LaravelExpoNotifications\Jobs;
+namespace YieldStudio\LaravelExpoNotifier\Jobs;
 
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use YieldStudio\LaravelExpoNotifications\Contracts\ExpoTicketStorageInterface;
-use YieldStudio\LaravelExpoNotifications\Contracts\ExpoTokenStorageInterface;
-use YieldStudio\LaravelExpoNotifications\Services\ExpoNotificationsService;
+use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTicketStorageInterface;
+use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTokenStorageInterface;
+use YieldStudio\LaravelExpoNotifier\Services\ExpoNotificationsService;
 
 class CheckExpoPushTickets
 {

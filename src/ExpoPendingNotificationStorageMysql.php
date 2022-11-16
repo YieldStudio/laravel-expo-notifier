@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace YieldStudio\LaravelExpoNotifications;
+namespace YieldStudio\LaravelExpoNotifier;
 
 use Illuminate\Support\Collection;
-use YieldStudio\LaravelExpoNotifications\Contracts\ExpoPendingNotificationStorageInterface;
-use YieldStudio\LaravelExpoNotifications\Models\ExpoNotification;
-use YieldStudio\LaravelExpoNotifications\Services\Dto\ExpoMessage;
-use YieldStudio\LaravelExpoNotifications\Services\Dto\ExpoNotification as ExpoNotificationDto;
+use YieldStudio\LaravelExpoNotifier\Contracts\ExpoPendingNotificationStorageInterface;
+use YieldStudio\LaravelExpoNotifier\Models\ExpoNotification;
+use YieldStudio\LaravelExpoNotifier\Services\Dto\ExpoMessage;
+use YieldStudio\LaravelExpoNotifier\Services\Dto\ExpoNotification as ExpoNotificationDto;
 
 final class ExpoPendingNotificationStorageMysql implements ExpoPendingNotificationStorageInterface
 {

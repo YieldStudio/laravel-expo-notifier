@@ -1,6 +1,6 @@
 <?php
 
-namespace YieldStudio\LaravelExpoNotifications\Tests;
+namespace YieldStudio\LaravelExpoNotifier\Tests;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;

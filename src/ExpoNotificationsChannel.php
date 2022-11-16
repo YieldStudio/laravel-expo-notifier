@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace YieldStudio\LaravelExpoNotifications;
+namespace YieldStudio\LaravelExpoNotifier;
 
 use Illuminate\Notifications\Notification;
-use YieldStudio\LaravelExpoNotifications\Contracts\ExpoPendingNotificationStorageInterface;
-use YieldStudio\LaravelExpoNotifications\Notifications\Contracts\UrgentExpoNotificationInterface;
-use YieldStudio\LaravelExpoNotifications\Services\ExpoNotificationsService;
+use YieldStudio\LaravelExpoNotifier\Contracts\ExpoPendingNotificationStorageInterface;
+use YieldStudio\LaravelExpoNotifier\Notifications\Contracts\UrgentExpoNotificationInterface;
+use YieldStudio\LaravelExpoNotifier\Services\ExpoNotificationsService;
 
 final class ExpoNotificationsChannel
 {

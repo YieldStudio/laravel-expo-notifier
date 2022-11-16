@@ -1,9 +1,9 @@
 <?php
 
-namespace YieldStudio\LaravelExpoNotifications\Tests;
+namespace YieldStudio\LaravelExpoNotifier\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
-use YieldStudio\LaravelExpoNotifications\ExpoNotificationsServiceProvider;
+use YieldStudio\LaravelExpoNotifier\ExpoNotificationsServiceProvider;
 
 abstract class TestCase extends Orchestra
 {

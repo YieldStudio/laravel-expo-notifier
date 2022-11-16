@@ -2,11 +2,11 @@
 
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Notification as NotificationFake;
-use YieldStudio\LaravelExpoNotifications\ExpoPendingNotificationStorageMysql;
-use YieldStudio\LaravelExpoNotifications\Services\Dto\ExpoMessage;
-use YieldStudio\LaravelExpoNotifications\ExpoNotificationsChannel;
-use YieldStudio\LaravelExpoNotifications\Services\ExpoNotificationsService;
-use YieldStudio\LaravelExpoNotifications\Tests\User;
+use YieldStudio\LaravelExpoNotifier\ExpoPendingNotificationStorageMysql;
+use YieldStudio\LaravelExpoNotifier\Services\Dto\ExpoMessage;
+use YieldStudio\LaravelExpoNotifier\ExpoNotificationsChannel;
+use YieldStudio\LaravelExpoNotifier\Services\ExpoNotificationsService;
+use YieldStudio\LaravelExpoNotifier\Tests\User;
 
 it('send notification via ExpoNotificationsChannel should call ExpoNotificationsService notify method', function () {
     DG\BypassFinals::enable();

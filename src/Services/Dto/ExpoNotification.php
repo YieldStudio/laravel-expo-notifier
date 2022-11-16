@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace YieldStudio\LaravelExpoNotifications\Services\Dto;
+namespace YieldStudio\LaravelExpoNotifier\Services\Dto;
 
 final class ExpoNotification
 {

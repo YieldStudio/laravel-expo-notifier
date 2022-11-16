@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace YieldStudio\LaravelExpoNotifications\Commands;
+namespace YieldStudio\LaravelExpoNotifier\Commands;
 
-use YieldStudio\LaravelExpoNotifications\Jobs\SendExpoDelayedNotifications;
+use YieldStudio\LaravelExpoNotifier\Jobs\SendExpoDelayedNotifications;
 use Illuminate\Console\Command;
 
 final class ExpoDelayedNotificationsSend extends Command

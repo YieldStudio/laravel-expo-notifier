@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace YieldStudio\LaravelExpoNotifications\Contracts;
+namespace YieldStudio\LaravelExpoNotifier\Contracts;
 
 interface ExpoTicketStorageInterface
 {

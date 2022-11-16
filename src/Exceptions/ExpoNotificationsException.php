@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace YieldStudio\LaravelExpoNotifications\Exceptions;
+namespace YieldStudio\LaravelExpoNotifier\Exceptions;
 
 use Exception;
 

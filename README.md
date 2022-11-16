@@ -27,7 +27,7 @@ php artisan vendor:publish --tag="expo-notifications-migration"
 
 You can implement the following interface on your notification :
 ```
-YieldStudio\LaravelExpoNotifications\Notifications\Contracts\UrgentExpoNotificationInterface
+YieldStudio\LaravelExpoNotifier\Notifications\Contracts\UrgentExpoNotificationInterface
 ```
 
 If method **isUrgent() return false**, your notification will be saved into the database and considered as **Pending**.
@@ -54,8 +54,8 @@ You may create schedules to execute these commands.
 
 namespace App\Notifications;
 
-use YieldStudio\LaravelExpoNotifications\ExpoNotificationsChannel;
-use YieldStudio\LaravelExpoNotifications\Services\Dto\ExpoMessage;
+use YieldStudio\LaravelExpoNotifier\ExpoNotificationsChannel;
+use YieldStudio\LaravelExpoNotifier\Services\Dto\ExpoMessage;
 
 class NewSampleNotification extends ExpoNotification
 {

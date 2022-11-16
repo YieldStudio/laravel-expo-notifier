@@ -1,5 +1,5 @@
 {
-  "name": "yieldstudio/laravel-expo-notifications",
+  "name": "yieldstudio/laravel-expo-notifier",
   "description": "Easily send Expo notifications with Laravel.",
   "type": "plugin",
   "keywords": [
@@ -9,7 +9,7 @@
     "notification",
     "expo"
   ],
-  "homepage": "https://github.com/YieldStudio/laravel-expo-notifications",
+  "homepage": "https://github.com/YieldStudio/laravel-expo-notifier",
   "license": "MIT",
   "authors": [
     {
@@ -40,12 +40,12 @@
   },
   "autoload": {
     "psr-4": {
-      "YieldStudio\\LaravelExpoNotifications\\": "src"
+      "YieldStudio\\LaravelExpoNotifier\\": "src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "YieldStudio\\LaravelExpoNotifications\\Tests\\": "tests"
+      "YieldStudio\\LaravelExpoNotifier\\Tests\\": "tests"
     }
   },
   "scripts": {
@@ -58,7 +58,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "YieldStudio\\LaravelExpoNotifications\\ExpoNotificationsServiceProvider"
+        "YieldStudio\\LaravelExpoNotifier\\ExpoNotificationsServiceProvider"
       ]
     }
   },

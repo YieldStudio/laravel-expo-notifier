@@ -1,6 +1,6 @@
 <?php
 
-namespace YieldStudio\LaravelExpoNotifications\Models;
+namespace YieldStudio\LaravelExpoNotifier\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
