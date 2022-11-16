@@ -12,18 +12,17 @@ use YieldStudio\LaravelExpoNotifier\Services\ExpoNotificationsService;
 
 class SendExpoDelayedNotifications
 {
-    const ERROR = 'error';
-    const DEVICE_NOT_REGISTERED = 'DeviceNotRegistered';
-
-    use Dispatchable, SerializesModels;
+    use Dispatchable;
+    use SerializesModels;
+    public const ERROR = 'error';
+    public const DEVICE_NOT_REGISTERED = 'DeviceNotRegistered';
 
     public function handle(
         ExpoNotificationsService                $expoNotificationsService,
         ExpoPendingNotificationStorageInterface $expoNotification,
         ExpoTokenStorageInterface               $tokenStorage,
         ExpoTicketStorageInterface              $ticketStorage
-    ): void
-    {
+    ): void {
         while ($expoNotification->total() > 0) {
             $notifications = $expoNotification->retrieve();
 
@@ -44,7 +43,7 @@ class SendExpoDelayedNotifications
                 ->transform(function ($data, $index) use ($tokens) {
                     return [
                         ...$data,
-                        'token' => $tokens->get($index)
+                        'token' => $tokens->get($index),
                     ];
                 })->each(function ($tokenResponse) use ($tokenStorage, $ticketStorage, &$tokensToDelete) {
                     if ($tokenResponse['status'] === self::ERROR && $tokenResponse['details']['error'] === self::DEVICE_NOT_REGISTERED) {

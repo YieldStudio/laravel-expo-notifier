@@ -36,16 +36,14 @@ final class ExpoNotification
         return $this;
     }
 
-
     /**
      * Get an array representation of the notification.
      */
     public function toArray(): array
     {
         return [
-            'id'        =>  $this->id,
-            'expo_message'     =>  $this->message
+            'id' => $this->id,
+            'expo_message' => $this->message,
         ];
     }
-
 }

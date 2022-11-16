@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace YieldStudio\LaravelExpoNotifier\Commands;
 
-use YieldStudio\LaravelExpoNotifier\Jobs\CheckExpoPushTickets;
 use Illuminate\Console\Command;
+use YieldStudio\LaravelExpoNotifier\Jobs\CheckExpoPushTickets;
 
 final class ExpoTicketsPurge extends Command
 {

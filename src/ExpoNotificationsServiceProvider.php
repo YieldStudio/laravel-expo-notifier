@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace YieldStudio\LaravelExpoNotifier;
 
+use Illuminate\Support\ServiceProvider;
 use YieldStudio\LaravelExpoNotifier\Commands\ExpoDelayedNotificationsSend;
 use YieldStudio\LaravelExpoNotifier\Commands\ExpoTicketsPurge;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoPendingNotificationStorageInterface;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTicketStorageInterface;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTokenStorageInterface;
 use YieldStudio\LaravelExpoNotifier\Services\ExpoNotificationsService;
-use Illuminate\Support\ServiceProvider;
 
 final class ExpoNotificationsServiceProvider extends ServiceProvider
 {
@@ -35,7 +35,7 @@ final class ExpoNotificationsServiceProvider extends ServiceProvider
 
         $this->commands([
             'expo:notifications:send',
-            'expo:purge-tickets'
+            'expo:purge-tickets',
         ]);
     }
 

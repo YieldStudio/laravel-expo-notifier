@@ -196,14 +196,14 @@ final class ExpoMessage implements Jsonable, Arrayable
     public function toArray(): array
     {
         $message = [
-            'to'        =>  $this->to,
-            'title'     =>  $this->title,
-            'body'      =>  $this->body,
-            'sound'     =>  $this->sound,
-            'badge'     =>  $this->badge,
-            'ttl'       =>  $this->ttl,
-            'data'      =>  $this->jsonData,
-            'priority'  =>  $this->priority,
+            'to' => $this->to,
+            'title' => $this->title,
+            'body' => $this->body,
+            'sound' => $this->sound,
+            'badge' => $this->badge,
+            'ttl' => $this->ttl,
+            'data' => $this->jsonData,
+            'priority' => $this->priority,
         ];
         if (filled($this->channelId)) {
             $message['channelId'] = $this->channelId;

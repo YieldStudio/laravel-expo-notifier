@@ -10,17 +10,16 @@ use YieldStudio\LaravelExpoNotifier\Services\ExpoNotificationsService;
 
 class CheckExpoPushTickets
 {
-    const OK = 'ok';
-    const ERROR = "error";
-
-    use Dispatchable, SerializesModels;
+    use Dispatchable;
+    use SerializesModels;
+    public const OK = 'ok';
+    public const ERROR = "error";
 
     public function handle(
         ExpoNotificationsService   $expoNotificationsService,
         ExpoTicketStorageInterface $ticketStorage,
         ExpoTokenStorageInterface $tokenStorage
-    ): void
-    {
+    ): void {
         while ($ticketStorage->total() > 0) {
             $tickets = $ticketStorage->retrieve();
 

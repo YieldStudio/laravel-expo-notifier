@@ -15,5 +15,4 @@ final class ExpoTicket extends Model
     {
         return $this->belongsTo(ExpoNotification::class);
     }
-
 }

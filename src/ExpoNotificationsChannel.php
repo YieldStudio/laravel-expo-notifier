@@ -11,12 +11,10 @@ use YieldStudio\LaravelExpoNotifier\Services\ExpoNotificationsService;
 
 final class ExpoNotificationsChannel
 {
-
     public function __construct(
         protected readonly ExpoNotificationsService $expoNotificationsService,
         protected readonly ExpoPendingNotificationStorageInterface $expoNotification
-    )
-    {
+    ) {
     }
 
     public function send($notifiable, Notification $notification): void
@@ -27,7 +25,7 @@ final class ExpoNotificationsChannel
             $this->expoNotificationsService->notify([$expoMessage]);
         } else {
             $this->expoNotification->store([
-                'data' => $expoMessage->toJson()
+                'data' => $expoMessage->toJson(),
             ]);
         }
     }

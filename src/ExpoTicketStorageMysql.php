@@ -31,7 +31,7 @@ final class ExpoTicketStorageMysql implements ExpoTicketStorageInterface
     {
         return ExpoTicket::create([
             'ticket_id' => $ticketId,
-            'token' => $token
+            'token' => $token,
         ]);
     }
 
