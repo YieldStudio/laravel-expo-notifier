@@ -10,13 +10,21 @@ use YieldStudio\LaravelExpoNotifier\Models\ExpoNotification;
 use YieldStudio\LaravelExpoNotifier\Services\Dto\ExpoMessage;
 use YieldStudio\LaravelExpoNotifier\Services\Dto\ExpoNotification as ExpoNotificationDto;
 
-final class ExpoPendingNotificationStorageMysql implements ExpoPendingNotificationStorageInterface
+class ExpoPendingNotificationStorageMysql implements ExpoPendingNotificationStorageInterface
 {
-    public function store(array $data): ExpoNotification
+    public function store(ExpoMessage $expoMessage): ExpoNotificationDto
     {
-        return ExpoNotification::create($data);
+        $notification = ExpoNotification::create([
+            'data' => $expoMessage->toJson(),
+        ]);
+
+        return ExpoNotificationDto::make($notification->id, $expoMessage);
     }
 
+    /**
+     * @param int $amount
+     * @return Collection<int, ExpoNotificationDto>
+     */
     public function retrieve(int $amount = 100): Collection
     {
         return ExpoNotification::take($amount)
@@ -24,21 +32,16 @@ final class ExpoPendingNotificationStorageMysql implements ExpoPendingNotificati
             ->map(function ($notification) {
                 return (new ExpoNotificationDto())
                     ->id($notification->id)
-                    ->expoMessage(
-                        (new ExpoMessage())
-                            ->fromJson($notification->data)
-                    );
+                    ->message(ExpoMessage::fromJson($notification->data));
             });
     }
 
-    public function delete(array $ids): bool
+    public function delete(array $ids): void
     {
         ExpoNotification::whereIn('id', $ids)->delete();
-
-        return true;
     }
 
-    public function total(): int
+    public function count(): int
     {
         return ExpoNotification::count();
     }

@@ -6,27 +6,38 @@ namespace YieldStudio\LaravelExpoNotifier\Services;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
+use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTicketStorageInterface;
+use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTokenStorageInterface;
 use YieldStudio\LaravelExpoNotifier\Enums\ExpoResponseStatus;
 use YieldStudio\LaravelExpoNotifier\Exceptions\ExpoNotificationsException;
+use YieldStudio\LaravelExpoNotifier\Services\Dto\ExpoMessage;
+use YieldStudio\LaravelExpoNotifier\Services\Dto\ExpoResponseDetails;
 use YieldStudio\LaravelExpoNotifier\Services\Dto\PushReceiptResponse;
 use YieldStudio\LaravelExpoNotifier\Services\Dto\PushTicketResponse;
 
 final class ExpoNotificationsService
 {
-    protected string $apiUrl = 'https://exp.host/--/api/v2/push';
-
-    public function __construct()
+    public function __construct(
+        string $apiUrl,
+        string $host,
+        protected readonly ExpoTokenStorageInterface $tokenStorage,
+        protected readonly ExpoTicketStorageInterface $ticketStorage
+    )
     {
         $this->http = Http::withHeaders([
-            'host' => 'exp.host',
+            'host' => $host,
             'accept' => 'application/json',
             'accept-encoding' => 'gzip, deflate',
             'content-type' => 'application/json',
-        ])->baseUrl($this->apiUrl);
+        ])->baseUrl($apiUrl);
     }
 
-    public function notify(array $expoMessages): Collection
+    public function notify(ExpoMessage|array $expoMessages): Collection
     {
+        if ($expoMessages instanceof ExpoMessage) {
+            $expoMessages = [$expoMessages];
+        }
+
         $response = $this->http->post('/send', $expoMessages);
 
         if (! $response->successful()) {
@@ -48,7 +59,8 @@ final class ExpoNotificationsService
             } else {
                 $data = (new PushTicketResponse())
                     ->status($responseItem['status'])
-                    ->id($responseItem['id']);
+                    ->ticketId($responseItem['id']);
+
             }
 
             return $data;
@@ -83,4 +95,41 @@ final class ExpoNotificationsService
             return $data;
         });
     }
+
+    public function storeTicketsFromResponse(Collection $tokens, Collection $response): void
+    {
+        $tokensToDelete = [];
+        $response
+            ->intersectByKeys($tokens)
+            ->each(function (PushTicketResponse $tokenResponse, $index) use ($tokens, &$tokensToDelete) {
+                if ($tokenResponse->status === ExpoResponseStatus::ERROR->value && $tokenResponse->details['error'] === ExpoResponseStatus::DEVICE_NOT_REGISTERED->value) {
+                    $tokensToDelete[] = $tokens->get($index);
+                } else {
+                    $this->ticketStorage->store($tokenResponse->ticketId, $tokens->get($index));
+                }
+            });
+        $this->tokenStorage->delete($tokensToDelete);
+    }
+
+    public function checkNotifyResponse(Collection $tickets, Collection $response): void
+    {
+
+        $tokensToDelete = [];
+        $ticketsToDelete = [];
+        $tickets->map(function ($ticket) use ($response, &$tokensToDelete, &$ticketsToDelete) {
+            /** @var PushTicketResponse $ticketResponse */
+            $ticketResponse = $response->get($ticket->id);
+            if (in_array($ticketResponse->status, [ExpoResponseStatus::OK->value, ExpoResponseStatus::ERROR->value])) {
+                if ($ticketResponse->status === ExpoResponseStatus::ERROR->value) {
+                    $tokensToDelete[] = $ticket->token;
+                }
+                $ticketsToDelete[] = $ticket->id;
+            }
+        });
+
+        $this->tokenStorage->delete($tokensToDelete);
+        $this->ticketStorage->delete($ticketsToDelete);
+    }
+
+
 }

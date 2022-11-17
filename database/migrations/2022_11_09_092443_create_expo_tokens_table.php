@@ -13,7 +13,9 @@ return new class extends Migration
 
             $table->morphs('owner');
 
-            $table->string('value')->unique();
+            $table->string('value');
+
+            $table->timestamps();
         });
     }
 

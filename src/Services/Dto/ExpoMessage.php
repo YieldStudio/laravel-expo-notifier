@@ -8,75 +8,40 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
 /**
- * forked from https://github.com/Alymosul/laravel-exponent-push-notifications/blob/master/src/ExpoMessage.php
+ * @see https://github.com/Alymosul/laravel-exponent-push-notifications/blob/master/src/ExpoMessage.php
+ * @author Alymosul<aly.suleiman@kfzteile24.de>
+ * @author David Tang<dtang.dev@gmail.com>
  */
 final class ExpoMessage implements Jsonable, Arrayable
 {
-    /**
-     * The message to.
-     */
     public array $to;
 
-    /**
-     * The message title.
-     */
     public string $title;
 
-    /**
-     * The message body.
-     */
     public string $body;
 
-    /**
-     * The sound to play when the recipient receives this notification.
-     */
     public ?string $sound = 'default';
 
-    /**
-     * The number to display next to the push notification (iOS).
-     * Specify zero to clear the badge.
-     */
     public int $badge = 0;
 
-    /**
-     * The number of seconds for which the message may be kept around for redelivery if it has not been delivered yet.
-     */
     public int $ttl = 0;
 
-    /**
-     * ID of the Notification Channel through which to display this notification on Android devices.
-     */
     public string $channelId;
 
-    /**
-     * The json data attached to the message.
-     */
     public string $jsonData = '{}';
 
-    /**
-     * The priority of notification message for Android devices.
-     */
     public string $priority = 'default';
 
-    /**
-     * Create a message with given body.
-     */
     public static function create(string $body = ''): ExpoMessage
     {
         return new ExpoMessage($body);
     }
 
-    /**
-     * ExpoMessage constructor.
-     */
     public function __construct(string $body = '')
     {
         $this->body = $body;
     }
 
-    /**
-     * Set the message to.
-     */
     public function to(?array $value): self
     {
         if (is_array($value)) {
@@ -88,9 +53,6 @@ final class ExpoMessage implements Jsonable, Arrayable
         return $this;
     }
 
-    /**
-     * Set the message title.
-     */
     public function title(string $value): self
     {
         $this->title = $value;
@@ -98,9 +60,6 @@ final class ExpoMessage implements Jsonable, Arrayable
         return $this;
     }
 
-    /**
-     * Set the message body.
-     */
     public function body(string $value): self
     {
         $this->body = $value;
@@ -108,9 +67,6 @@ final class ExpoMessage implements Jsonable, Arrayable
         return $this;
     }
 
-    /**
-     * Enable the message sound.
-     */
     public function enableSound(): self
     {
         $this->sound = 'default';
@@ -118,9 +74,6 @@ final class ExpoMessage implements Jsonable, Arrayable
         return $this;
     }
 
-    /**
-     * Disable the message sound.
-     */
     public function disableSound(): self
     {
         $this->sound = null;
@@ -128,9 +81,6 @@ final class ExpoMessage implements Jsonable, Arrayable
         return $this;
     }
 
-    /**
-     * Set the message badge (iOS).
-     */
     public function badge(int $value): self
     {
         $this->badge = $value;
@@ -138,9 +88,6 @@ final class ExpoMessage implements Jsonable, Arrayable
         return $this;
     }
 
-    /**
-     * Set the time to live of the notification.
-     */
     public function ttl(int $ttl): self
     {
         $this->ttl = $ttl;
@@ -148,9 +95,6 @@ final class ExpoMessage implements Jsonable, Arrayable
         return $this;
     }
 
-    /**
-     * Set the channelId of the notification for Android devices.
-     */
     public function channelId(string $channelId): self
     {
         $this->channelId = $channelId;
@@ -158,11 +102,6 @@ final class ExpoMessage implements Jsonable, Arrayable
         return $this;
     }
 
-    /**
-     * Set the json Data attached to the message.
-     *
-     * @throws \Exception
-     */
     public function jsonData(array|string $data): self
     {
         if (is_array($data)) {
@@ -180,9 +119,6 @@ final class ExpoMessage implements Jsonable, Arrayable
         return $this;
     }
 
-    /**
-     *  Set the priority of the notification, must be one of [default, normal, high].
-     */
     public function priority(string $priority): self
     {
         $this->priority = $priority;
@@ -190,9 +126,6 @@ final class ExpoMessage implements Jsonable, Arrayable
         return $this;
     }
 
-    /**
-     * Get an array representation of the message.
-     */
     public function toArray(): array
     {
         $message = [
@@ -217,18 +150,12 @@ final class ExpoMessage implements Jsonable, Arrayable
         return $this->toArray();
     }
 
-    /**
-     * Get an json representation of the message.
-     */
     public function toJson($options = JSON_THROW_ON_ERROR): bool|string
     {
         return json_encode($this->toArray(), $options);
     }
 
-    /**
-     * Convert json representation to ExpoMessage.
-     */
-    public function fromJson($jsonData): ExpoMessage
+    public static function fromJson($jsonData): ExpoMessage
     {
         $data = json_decode($jsonData, true);
 

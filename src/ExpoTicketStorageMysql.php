@@ -4,43 +4,40 @@ declare(strict_types=1);
 
 namespace YieldStudio\LaravelExpoNotifier;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTicketStorageInterface;
 use YieldStudio\LaravelExpoNotifier\Models\ExpoTicket;
+use YieldStudio\LaravelExpoNotifier\Services\Dto\ExpoTicket as ExpoTicketDto;
 
-final class ExpoTicketStorageMysql implements ExpoTicketStorageInterface
+class ExpoTicketStorageMysql implements ExpoTicketStorageInterface
 {
-    public function getByKey(string $key): ?ExpoTicket
-    {
-        return ExpoTicket::where('key', '=', $key)
-            ->first();
-    }
-
-    public function getByValue(string $value): ?ExpoTicket
-    {
-        return ExpoTicket::where('value', '=', $value)
-            ->first();
-    }
-
+    /**
+     * @param int $amount
+     * @return Collection<string, ExpoTicketDto>
+     */
     public function retrieve(int $amount = 1000): Collection
     {
-        return ExpoTicket::take($amount)->get();
+        return ExpoTicket::take($amount)
+            ->get()
+            ->map(fn($ticket) => ExpoTicketDto::make($ticket->ticket_id, $ticket->token));
     }
 
-    public function store(string $ticketId, string $token): ExpoTicket
+    public function store(string $ticketId, string $token): ExpoTicketDto
     {
-        return ExpoTicket::create([
+        $expoTicket = ExpoTicket::create([
             'ticket_id' => $ticketId,
             'token' => $token,
         ]);
+
+        return ExpoTicketDto::make($expoTicket->ticket_id, $expoTicket->token);
     }
 
-    public function delete(array $ids): bool
+    public function delete(array $ticketIds): void
     {
-        return (bool) ExpoTicket::whereIn('id', $ids)->delete();
+        ExpoTicket::whereIn('ticket_id', $ticketIds)->delete();
     }
 
-    public function total(): int
+    public function count(): int
     {
         return ExpoTicket::count();
     }

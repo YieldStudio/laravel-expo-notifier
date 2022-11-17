@@ -22,30 +22,6 @@ php artisan vendor:publish --provider="YieldStudio\LaravelExpoNotifier\ExpoNotif
 
 ## Usage
 
-### Priority management
-
-You can implement the following interface on your notification :
-```
-YieldStudio\LaravelExpoNotifier\Notifications\Contracts\UrgentExpoNotificationInterface
-```
-
-If method **isUrgent() return false**, your notification will be saved into the database and considered as **Pending**.
-
-
-### Commands usage
-
-Send database pending notifications
-```
-php artisan expo:notifications:send
-```
-
-Clean tickets from outdated tokens
-```
-php artisan expo:purge-tickets
-```
-
-You may create schedules to execute these commands.
-
 ### Send notification
 
 ```php
@@ -53,10 +29,11 @@ You may create schedules to execute these commands.
 
 namespace App\Notifications;
 
+use Illuminate\Notifications\Notification;
 use YieldStudio\LaravelExpoNotifier\ExpoNotificationsChannel;
 use YieldStudio\LaravelExpoNotifier\Services\Dto\ExpoMessage;
 
-class NewSampleNotification extends ExpoNotification
+class NewSampleNotification extends Notification
 {
     public function __construct()
     {
@@ -77,6 +54,29 @@ class NewSampleNotification extends ExpoNotification
     }
 }
 ```
+
+### Commands usage
+
+Send database pending notifications
+```
+php artisan expo:notifications:send
+```
+
+Clean tickets from outdated tokens
+```
+php artisan expo:purge-tickets
+```
+
+You may create schedules to execute these commands.
+
+### Priority management
+
+You can implement the following interface on your notification :
+```
+YieldStudio\LaravelExpoNotifier\Notifications\Contracts\UrgentExpoNotificationInterface
+```
+
+If method **isUrgent() return false**, your notification will be saved into the database and considered as **Pending**.
 
 ## Unit tests
 

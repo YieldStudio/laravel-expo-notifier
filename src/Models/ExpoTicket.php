@@ -7,7 +7,7 @@ namespace YieldStudio\LaravelExpoNotifier\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-final class ExpoTicket extends Model
+class ExpoTicket extends Model
 {
     protected $guarded = ['id'];
 

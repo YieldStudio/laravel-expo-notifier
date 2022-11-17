@@ -8,4 +8,5 @@ enum ExpoResponseStatus: string
 {
     case OK = 'ok';
     case ERROR = 'error';
+    case DEVICE_NOT_REGISTERED = 'DeviceNotRegistered';
 }

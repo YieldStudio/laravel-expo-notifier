@@ -7,7 +7,7 @@ namespace YieldStudio\LaravelExpoNotifier\Services\Dto;
 final class PushTicketResponse
 {
     public string $status;
-    public ?string $id = null;
+    public ?string $ticketId = null;
     public ?string $message = null;
     public ?array $details = null;
 
@@ -18,9 +18,9 @@ final class PushTicketResponse
         return $this;
     }
 
-    public function id(string $id): self
+    public function ticketId(string $ticketId): self
     {
-        $this->id = $id;
+        $this->ticketId = $ticketId;
 
         return $this;
     }
@@ -45,8 +45,8 @@ final class PushTicketResponse
             'status' => $this->status,
         ];
 
-        if (filled($this->id)) {
-            $data['id'] = $this->id;
+        if (filled($this->ticketId)) {
+            $data['ticket_id'] = $this->ticketId;
         }
 
         if (filled($this->message)) {

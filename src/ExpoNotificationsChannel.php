@@ -22,11 +22,12 @@ final class ExpoNotificationsChannel
         $expoMessage = $notification->toExpoNotification($notifiable);
 
         if ($notification instanceof UrgentExpoNotificationInterface && $notification->isUrgent()) {
-            $this->expoNotificationsService->notify([$expoMessage]);
+            $response = $this->expoNotificationsService->notify($expoMessage);
+            $tokens = [$expoMessage->to];
+
+            $this->expoNotificationsService->storeTicketsFromResponse($tokens, $response);
         } else {
-            $this->expoNotification->store([
-                'data' => $expoMessage->toJson(),
-            ]);
+            $this->expoNotification->store($expoMessage);
         }
     }
 }

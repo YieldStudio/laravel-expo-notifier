@@ -10,7 +10,7 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="Laravel Exponent Notification Notifier Test Suite">
+        <testsuite name="Laravel Expo Notification Notifier Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>

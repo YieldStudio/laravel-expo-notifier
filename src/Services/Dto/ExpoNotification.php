@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace YieldStudio\LaravelExpoNotifier\Services\Dto;
 
+use YieldStudio\LaravelExpoNotifier\Services\Dto\ExpoNotification as ExpoNotificationDto;
+
 final class ExpoNotification
 {
-    /**
-     * The notification id.
-     */
     public int $id;
 
-    /**
-     * The notification expoMessage
-     */
     public ExpoMessage $message;
 
-    /**
-     * Set the notification id
-     */
+    public static function make(int $id, ExpoMessage $message): ExpoNotificationDto
+    {
+        return (new ExpoNotificationDto())
+            ->id($id)
+            ->message($message);
+    }
+
     public function id(int $value): self
     {
         $this->id = $value;
@@ -26,19 +26,13 @@ final class ExpoNotification
         return $this;
     }
 
-    /**
-     * Set the expoMessage
-     */
-    public function expoMessage(ExpoMessage $value): self
+    public function message(ExpoMessage $value): self
     {
         $this->message = $value;
 
         return $this;
     }
 
-    /**
-     * Get an array representation of the notification.
-     */
     public function toArray(): array
     {
         return [

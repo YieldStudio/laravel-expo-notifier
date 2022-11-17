@@ -7,7 +7,7 @@ namespace YieldStudio\LaravelExpoNotifier\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-final class ExpoNotification extends Model
+class ExpoNotification extends Model
 {
     protected $guarded = ['id'];
 

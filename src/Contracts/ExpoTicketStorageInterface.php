@@ -6,15 +6,11 @@ namespace YieldStudio\LaravelExpoNotifier\Contracts;
 
 interface ExpoTicketStorageInterface
 {
-    public function getByKey(string $key);
-
-    public function getByValue(string $value);
-
     public function store(string $ticketId, string $token);
 
-    public function delete(array $ids);
+    public function delete(array $ticketIds);
 
     public function retrieve(int $amount = 1000);
 
-    public function total();
+    public function count();
 }

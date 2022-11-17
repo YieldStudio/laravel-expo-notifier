@@ -7,7 +7,7 @@ namespace YieldStudio\LaravelExpoNotifier;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTokenStorageInterface;
 use YieldStudio\LaravelExpoNotifier\Models\ExpoToken;
 
-final class ExpoTokenStorageMysql implements ExpoTokenStorageInterface
+class ExpoTokenStorageMysql implements ExpoTokenStorageInterface
 {
     public function getByKey(string $key): ?ExpoToken
     {
@@ -26,8 +26,8 @@ final class ExpoTokenStorageMysql implements ExpoTokenStorageInterface
         return ExpoToken::create($data);
     }
 
-    public function delete(array $tokens): bool
+    public function delete(array $tokens): void
     {
-        return (bool)ExpoToken::whereIn('value', $tokens)->delete();
+        ExpoToken::whereIn('value', $tokens)->delete();
     }
 }
