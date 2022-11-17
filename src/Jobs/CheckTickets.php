@@ -17,8 +17,7 @@ class CheckTickets
     public function handle(
         ExpoNotificationsService   $expoNotificationsService,
         ExpoTicketStorageInterface $ticketStorage
-    ): void
-    {
+    ): void {
         while ($ticketStorage->count() > 0) {
             $tickets = $ticketStorage->retrieve();
 

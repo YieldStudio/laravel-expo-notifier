@@ -11,7 +11,7 @@ final class ExpoTicket
 
     public static function make(string $id, string $token): ExpoTicket
     {
-        return (new ExpoTicket)
+        return (new ExpoTicket())
             ->id($id)
             ->token($token);
     }

@@ -11,7 +11,6 @@ use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTokenStorageInterface;
 use YieldStudio\LaravelExpoNotifier\Enums\ExpoResponseStatus;
 use YieldStudio\LaravelExpoNotifier\Exceptions\ExpoNotificationsException;
 use YieldStudio\LaravelExpoNotifier\Services\Dto\ExpoMessage;
-use YieldStudio\LaravelExpoNotifier\Services\Dto\ExpoResponseDetails;
 use YieldStudio\LaravelExpoNotifier\Services\Dto\PushReceiptResponse;
 use YieldStudio\LaravelExpoNotifier\Services\Dto\PushTicketResponse;
 
@@ -22,8 +21,7 @@ final class ExpoNotificationsService
         string $host,
         protected readonly ExpoTokenStorageInterface $tokenStorage,
         protected readonly ExpoTicketStorageInterface $ticketStorage
-    )
-    {
+    ) {
         $this->http = Http::withHeaders([
             'host' => $host,
             'accept' => 'application/json',
@@ -60,7 +58,6 @@ final class ExpoNotificationsService
                 $data = (new PushTicketResponse())
                     ->status($responseItem['status'])
                     ->ticketId($responseItem['id']);
-
             }
 
             return $data;
@@ -113,7 +110,6 @@ final class ExpoNotificationsService
 
     public function checkNotifyResponse(Collection $tickets, Collection $response): void
     {
-
         $tokensToDelete = [];
         $ticketsToDelete = [];
         $tickets->map(function ($ticket) use ($response, &$tokensToDelete, &$ticketsToDelete) {
@@ -130,6 +126,4 @@ final class ExpoNotificationsService
         $this->tokenStorage->delete($tokensToDelete);
         $this->ticketStorage->delete($ticketsToDelete);
     }
-
-
 }

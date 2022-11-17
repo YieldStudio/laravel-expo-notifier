@@ -18,8 +18,7 @@ class SendPendingNotifications
     public function handle(
         ExpoNotificationsService                $expoNotificationsService,
         ExpoPendingNotificationStorageInterface $expoNotification,
-    ): void
-    {
+    ): void {
         while ($expoNotification->count() > 0) {
             $notifications = $expoNotification->retrieve();
 

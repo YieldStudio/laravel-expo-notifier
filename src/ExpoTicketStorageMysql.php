@@ -19,7 +19,7 @@ class ExpoTicketStorageMysql implements ExpoTicketStorageInterface
     {
         return ExpoTicket::take($amount)
             ->get()
-            ->map(fn($ticket) => ExpoTicketDto::make($ticket->ticket_id, $ticket->token));
+            ->map(fn ($ticket) => ExpoTicketDto::make($ticket->ticket_id, $ticket->token));
     }
 
     public function store(string $ticketId, string $token): ExpoTicketDto
