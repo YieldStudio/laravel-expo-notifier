@@ -8,6 +8,7 @@ use YieldStudio\LaravelExpoNotifier\Contracts\ExpoPendingNotificationStorageInte
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTicketStorageInterface;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTokenStorageInterface;
 use YieldStudio\LaravelExpoNotifier\Services\Dto\ExpoMessage;
+use YieldStudio\LaravelExpoNotifier\Services\Dto\PushTicketResponse;
 use YieldStudio\LaravelExpoNotifier\Services\ExpoNotificationsService;
 
 class SendExpoDelayedNotifications
@@ -38,11 +39,11 @@ class SendExpoDelayedNotifications
             $tokens = $expoMessages->pluck('to')->flatten();
 
             $tokensToDelete = [];
-            collect($response['data'])
+            $response
                 ->intersectByKeys($tokens)
-                ->transform(function ($data, $index) use ($tokens) {
+                ->transform(function (PushTicketResponse $data, $index) use ($tokens) {
                     return [
-                        ...$data,
+                        ...$data->toArray(),
                         'token' => $tokens->get($index),
                     ];
                 })->each(function ($tokenResponse) use ($tokenStorage, $ticketStorage, &$tokensToDelete) {

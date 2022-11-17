@@ -6,14 +6,14 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTicketStorageInterface;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTokenStorageInterface;
+use YieldStudio\LaravelExpoNotifier\Enums\ExpoResponseStatus;
+use YieldStudio\LaravelExpoNotifier\Services\Dto\PushTicketResponse;
 use YieldStudio\LaravelExpoNotifier\Services\ExpoNotificationsService;
 
 class CheckExpoPushTickets
 {
     use Dispatchable;
     use SerializesModels;
-    public const OK = 'ok';
-    public const ERROR = "error";
 
     public function handle(
         ExpoNotificationsService   $expoNotificationsService,
@@ -27,18 +27,17 @@ class CheckExpoPushTickets
 
             $response = $expoNotificationsService->receipts($ticketIds);
 
-            $responseData = collect($response['data']);
-
-            if ($responseData->count() === 0) {
+            if ($response->count() === 0) {
                 break;
             }
 
             $tokensToDelete = [];
             $ticketsToDelete = [];
-            $tickets->map(function ($ticket) use ($responseData, $ticketStorage, $tokenStorage, &$tokensToDelete, &$ticketsToDelete) {
-                $ticketResponse = $responseData->get($ticket->ticket_id);
-                if (in_array($ticketResponse['status'], [self::OK, self::ERROR])) {
-                    if ($ticketResponse['status'] === self::ERROR) {
+            $tickets->map(function ($ticket) use ($response, $ticketStorage, $tokenStorage, &$tokensToDelete, &$ticketsToDelete) {
+                /** @var PushTicketResponse $ticketResponse */
+                $ticketResponse = $response->get($ticket->ticket_id);
+                if (in_array($ticketResponse->status, [ExpoResponseStatus::OK->value, ExpoResponseStatus::ERROR->value])) {
+                    if ($ticketResponse->status === ExpoResponseStatus::ERROR->value) {
                         $tokensToDelete[] = $ticket->token;
                     }
                     $ticketsToDelete[] = $ticket->id;
