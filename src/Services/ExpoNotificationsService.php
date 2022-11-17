@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace YieldStudio\LaravelExpoNotifier\Services;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use YieldStudio\LaravelExpoNotifier\Enums\ExpoResponseStatus;
 use YieldStudio\LaravelExpoNotifier\Exceptions\ExpoNotificationsException;
-use YieldStudio\LaravelExpoNotifier\Services\Dto\ExpoResponseDetails;
 use YieldStudio\LaravelExpoNotifier\Services\Dto\PushReceiptResponse;
 use YieldStudio\LaravelExpoNotifier\Services\Dto\PushTicketResponse;
-use Illuminate\Support\Collection;
 
 final class ExpoNotificationsService
 {
@@ -36,11 +35,11 @@ final class ExpoNotificationsService
 
         $responseData = json_decode($response->body(), true);
 
-        if (!empty($responseData['errors'])) {
+        if (! empty($responseData['errors'])) {
             throw new ExpoNotificationsException('ExpoNotificationsService:push() failed', $response->status());
         }
 
-        return collect($responseData['data'])->map(function($responseItem) {
+        return collect($responseData['data'])->map(function ($responseItem) {
             if ($responseItem['status'] === ExpoResponseStatus::ERROR->value) {
                 $data = (new PushTicketResponse())
                     ->status($responseItem['status'])
@@ -50,7 +49,6 @@ final class ExpoNotificationsService
                 $data = (new PushTicketResponse())
                     ->status($responseItem['status'])
                     ->id($responseItem['id']);
-
             }
 
             return $data;
@@ -67,11 +65,11 @@ final class ExpoNotificationsService
 
         $responseData = json_decode($response->body(), true);
 
-        if (!empty($responseData['errors'])) {
+        if (! empty($responseData['errors'])) {
             throw new ExpoNotificationsException('ExpoNotificationsService:push() failed', $response->status());
         }
 
-        return collect($responseData['data'])->map(function($responseItem, $id) {
+        return collect($responseData['data'])->map(function ($responseItem, $id) {
             $data = (new PushReceiptResponse())
                 ->id($id)
                 ->status($responseItem['status']);
