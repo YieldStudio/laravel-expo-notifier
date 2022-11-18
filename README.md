@@ -6,7 +6,7 @@ Easily send Exponent Notifications with Laravel notifier.
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/yieldstudio/laravel-expo-notifier/tests?style=flat-square)](https://github.com/yieldstudio/laravel-expo-notifier/actions/workflows/tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/yieldstudio/laravel-expo-notifier?style=flat-square)](https://packagist.org/packages/yieldstudio/laravel-expo-notifier)
 
-> L’identifiant de version majeure zéro (0.y.z) est destiné au développement initial. Tout ou partie peut être modifié à tout moment. L’API publique ne devrait pas être considérée comme stable.
+> Major version zero (0.y.z) is for initial development. Anything MAY change at any time. The public API SHOULD NOT be considered stable.
 
 ## Installation
 
@@ -35,10 +35,6 @@ use YieldStudio\LaravelExpoNotifier\Dto\ExpoMessage;
 
 class NewSampleNotification extends Notification
 {
-    public function __construct()
-    {
-    }
-
     public function via($notifiable): array
     {
         return [ExpoNotificationsChannel::class];
