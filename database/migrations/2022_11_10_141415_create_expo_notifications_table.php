@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create(config('expo-notifications.database.notification_table_name', 'expo_notifications'), function (Blueprint $table) {
+        Schema::create(config('expo-notifications.database.notifications_table_name', 'expo_notifications'), function (Blueprint $table) {
             $table->id();
 
             $table->json('data');
@@ -19,6 +19,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists(config('expo-notifications.database.notification_table_name', 'expo_notifications'));
+        Schema::dropIfExists(config('expo-notifications.database.notifications_table_name', 'expo_notifications'));
     }
 };

@@ -10,7 +10,6 @@ use YieldStudio\LaravelExpoNotifier\Commands\SendPendingNotifications;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoPendingNotificationStorageInterface;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTicketStorageInterface;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTokenStorageInterface;
-use YieldStudio\LaravelExpoNotifier\Services\ExpoNotificationsService;
 
 final class ExpoNotificationsServiceProvider extends ServiceProvider
 {
@@ -34,14 +33,12 @@ final class ExpoNotificationsServiceProvider extends ServiceProvider
             $apiUrl = config('expo-notifications.service.api_url');
             $host = config('expo-notifications.service.host');
 
-            $instance = new ExpoNotificationsService(
+            return new ExpoNotificationsService(
                 $apiUrl,
                 $host,
                 $app->make(ExpoTokenStorageInterface::class),
                 $app->make(ExpoTicketStorageInterface::class)
             );
-
-            return $instance;
         });
 
         $this->commands([

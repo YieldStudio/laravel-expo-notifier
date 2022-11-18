@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace YieldStudio\LaravelExpoNotifier\Services\Dto;
+namespace YieldStudio\LaravelExpoNotifier\Dto;
 
-final class ExpoTicket
+use Illuminate\Contracts\Support\Arrayable;
+
+final class ExpoTicket implements Arrayable
 {
     public string $id;
     public string $token;

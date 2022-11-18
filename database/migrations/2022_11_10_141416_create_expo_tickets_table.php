@@ -8,11 +8,10 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create(config('expo-notifications.database.ticket_table_name', 'expo_tickets'), function (Blueprint $table) {
+        Schema::create(config('expo-notifications.database.tickets_table_name', 'expo_tickets'), function (Blueprint $table) {
             $table->id();
 
             $table->string('ticket_id')->unique();
-
             $table->string('token');
 
             $table->timestamps();
@@ -21,6 +20,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists(config('expo-notifications.database.ticket_table_name', 'expo_tickets'));
+        Schema::dropIfExists(config('expo-notifications.database.tickets_table_name', 'expo_tickets'));
     }
 };

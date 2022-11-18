@@ -1,6 +1,6 @@
 <?php
 
-namespace YieldStudio\LaravelExpoNotifier\Notifications\Contracts;
+namespace YieldStudio\LaravelExpoNotifier\Contracts;
 
 interface UrgentExpoNotificationInterface
 {

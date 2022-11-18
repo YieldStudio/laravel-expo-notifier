@@ -2,22 +2,19 @@
 
 declare(strict_types=1);
 
-namespace YieldStudio\LaravelExpoNotifier;
+namespace YieldStudio\LaravelExpoNotifier\Storage;
 
 use Illuminate\Support\Collection;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTicketStorageInterface;
+use YieldStudio\LaravelExpoNotifier\Dto\ExpoTicket as ExpoTicketDto;
 use YieldStudio\LaravelExpoNotifier\Models\ExpoTicket;
-use YieldStudio\LaravelExpoNotifier\Services\Dto\ExpoTicket as ExpoTicketDto;
 
 class ExpoTicketStorageMysql implements ExpoTicketStorageInterface
 {
-    /**
-     * @param int $amount
-     * @return Collection<string, ExpoTicketDto>
-     */
     public function retrieve(int $amount = 1000): Collection
     {
-        return ExpoTicket::take($amount)
+        return ExpoTicket::query()
+            ->take($amount)
             ->get()
             ->map(fn ($ticket) => ExpoTicketDto::make($ticket->ticket_id, $ticket->token));
     }
@@ -34,11 +31,11 @@ class ExpoTicketStorageMysql implements ExpoTicketStorageInterface
 
     public function delete(array $ticketIds): void
     {
-        ExpoTicket::whereIn('ticket_id', $ticketIds)->delete();
+        ExpoTicket::query()->whereIn('ticket_id', $ticketIds)->delete();
     }
 
     public function count(): int
     {
-        return ExpoTicket::count();
+        return ExpoTicket::query()->count();
     }
 }

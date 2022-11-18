@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTicketStorageInterface;
-use YieldStudio\LaravelExpoNotifier\Services\ExpoNotificationsService;
+use YieldStudio\LaravelExpoNotifier\ExpoNotificationsService;
 
 class CheckTickets
 {
@@ -20,12 +20,10 @@ class CheckTickets
     ): void {
         while ($ticketStorage->count() > 0) {
             $tickets = $ticketStorage->retrieve();
-
             $ticketIds = $tickets->pluck('id')->toArray();
 
             $response = $expoNotificationsService->receipts($ticketIds);
-
-            if ($response->count() === 0) {
+            if ($response->isEmpty()) {
                 break;
             }
 

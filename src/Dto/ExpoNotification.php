@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace YieldStudio\LaravelExpoNotifier\Services\Dto;
+namespace YieldStudio\LaravelExpoNotifier\Dto;
 
-use YieldStudio\LaravelExpoNotifier\Services\Dto\ExpoNotification as ExpoNotificationDto;
+use Illuminate\Contracts\Support\Arrayable;
 
-final class ExpoNotification
+final class ExpoNotification implements Arrayable
 {
     public int $id;
 
     public ExpoMessage $message;
 
-    public static function make(int $id, ExpoMessage $message): ExpoNotificationDto
+    public static function make(int $id, ExpoMessage $message): ExpoNotification
     {
-        return (new ExpoNotificationDto())
+        return (new ExpoNotification())
             ->id($id)
             ->message($message);
     }

@@ -1,8 +1,8 @@
 <?php
 
-use YieldStudio\LaravelExpoNotifier\ExpoTokenStorageMysql;
-use YieldStudio\LaravelExpoNotifier\ExpoTicketStorageMysql;
-use YieldStudio\LaravelExpoNotifier\ExpoPendingNotificationStorageMysql;
+use YieldStudio\LaravelExpoNotifier\Storage\ExpoTokenStorageMysql;
+use YieldStudio\LaravelExpoNotifier\Storage\ExpoTicketStorageMysql;
+use YieldStudio\LaravelExpoNotifier\Storage\ExpoPendingNotificationStorageMysql;
 
 return [
     'drivers' => [
@@ -11,9 +11,9 @@ return [
         'notification' => ExpoPendingNotificationStorageMysql::class,
     ],
     'database' => [
-        'token_table_name' => 'expo_tokens',
-        'ticket_table_name' => 'expo_tickets',
-        'notification_table_name' => 'expo_notifications',
+        'tokens_table_name' => 'expo_tokens',
+        'tickets_table_name' => 'expo_tickets',
+        'notifications_table_name' => 'expo_notifications',
     ],
     'service' => [
         'api_url' => 'https://exp.host/--/api/v2/push',

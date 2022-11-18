@@ -31,7 +31,7 @@ namespace App\Notifications;
 
 use Illuminate\Notifications\Notification;
 use YieldStudio\LaravelExpoNotifier\ExpoNotificationsChannel;
-use YieldStudio\LaravelExpoNotifier\Services\Dto\ExpoMessage;
+use YieldStudio\LaravelExpoNotifier\Dto\ExpoMessage;
 
 class NewSampleNotification extends Notification
 {
@@ -64,7 +64,7 @@ php artisan expo:notifications:send
 
 Clean tickets from outdated tokens
 ```
-php artisan expo:purge-tickets
+php artisan expo:tickets:check
 ```
 
 You may create schedules to execute these commands.
@@ -73,7 +73,7 @@ You may create schedules to execute these commands.
 
 You can implement the following interface on your notification :
 ```
-YieldStudio\LaravelExpoNotifier\Notifications\Contracts\UrgentExpoNotificationInterface
+YieldStudio\LaravelExpoNotifier\Contracts\UrgentExpoNotificationInterface
 ```
 
 If method **isUrgent() return false**, your notification will be saved into the database and considered as **Pending**.

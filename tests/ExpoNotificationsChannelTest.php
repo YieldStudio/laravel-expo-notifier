@@ -2,10 +2,10 @@
 
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Notification as NotificationFake;
-use YieldStudio\LaravelExpoNotifier\ExpoPendingNotificationStorageMysql;
-use YieldStudio\LaravelExpoNotifier\Services\Dto\ExpoMessage;
+use YieldStudio\LaravelExpoNotifier\Storage\ExpoPendingNotificationStorageMysql;
+use YieldStudio\LaravelExpoNotifier\Dto\ExpoMessage;
 use YieldStudio\LaravelExpoNotifier\ExpoNotificationsChannel;
-use YieldStudio\LaravelExpoNotifier\Services\ExpoNotificationsService;
+use YieldStudio\LaravelExpoNotifier\ExpoNotificationsService;
 use YieldStudio\LaravelExpoNotifier\Tests\User;
 
 it('send notification via ExpoNotificationsChannel should call ExpoNotificationsService notify method', function () {
@@ -33,6 +33,4 @@ it('send notification via ExpoNotificationsChannel should call ExpoNotifications
                 ->channelId('default');
         }
     });
-
-
 });

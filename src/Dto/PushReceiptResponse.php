@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-namespace YieldStudio\LaravelExpoNotifier\Services\Dto;
+namespace YieldStudio\LaravelExpoNotifier\Dto;
 
-final class PushTicketResponse
+use Illuminate\Contracts\Support\Arrayable;
+
+final class PushReceiptResponse implements Arrayable
 {
     public string $status;
-    public ?string $ticketId = null;
+    public ?string $id = null;
     public ?string $message = null;
     public ?array $details = null;
 
@@ -18,9 +20,9 @@ final class PushTicketResponse
         return $this;
     }
 
-    public function ticketId(string $ticketId): self
+    public function id(string $id): self
     {
-        $this->ticketId = $ticketId;
+        $this->id = $id;
 
         return $this;
     }
@@ -42,12 +44,9 @@ final class PushTicketResponse
     public function toArray(): array
     {
         $data = [
+            'id' => $this->id,
             'status' => $this->status,
         ];
-
-        if (filled($this->ticketId)) {
-            $data['ticket_id'] = $this->ticketId;
-        }
 
         if (filled($this->message)) {
             $data['message'] = $this->message;

@@ -8,11 +8,10 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create(config('expo-notifications.database.token_table_name', 'expo_tokens'), function (Blueprint $table) {
+        Schema::create(config('expo-notifications.database.tokens_table_name', 'expo_tokens'), function (Blueprint $table) {
             $table->id();
 
             $table->morphs('owner');
-
             $table->string('value');
 
             $table->timestamps();
@@ -21,6 +20,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists(config('expo-notifications.database.token_table_name', 'expo_tokens'));
+        Schema::dropIfExists(config('expo-notifications.database.tokens_table_name', 'expo_tokens'));
     }
 };

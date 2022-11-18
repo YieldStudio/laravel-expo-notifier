@@ -6,8 +6,9 @@ namespace YieldStudio\LaravelExpoNotifier;
 
 use Illuminate\Notifications\Notification;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoPendingNotificationStorageInterface;
-use YieldStudio\LaravelExpoNotifier\Notifications\Contracts\UrgentExpoNotificationInterface;
-use YieldStudio\LaravelExpoNotifier\Services\ExpoNotificationsService;
+use YieldStudio\LaravelExpoNotifier\Contracts\UrgentExpoNotificationInterface;
+use YieldStudio\LaravelExpoNotifier\Dto\ExpoMessage;
+use YieldStudio\LaravelExpoNotifier\Exceptions\ExpoNotificationsException;
 
 final class ExpoNotificationsChannel
 {
@@ -17,15 +18,21 @@ final class ExpoNotificationsChannel
     ) {
     }
 
+    /**
+     * @throws ExpoNotificationsException
+     */
     public function send($notifiable, Notification $notification): void
     {
+        /** @var ExpoMessage $expoMessage */
         $expoMessage = $notification->toExpoNotification($notifiable);
 
         if ($notification instanceof UrgentExpoNotificationInterface && $notification->isUrgent()) {
             $response = $this->expoNotificationsService->notify($expoMessage);
-            $tokens = [$expoMessage->to];
 
-            $this->expoNotificationsService->storeTicketsFromResponse($tokens, $response);
+            $this->expoNotificationsService->storeTicketsFromResponse(
+                collect($expoMessage->to),
+                $response
+            );
         } else {
             $this->expoNotification->store($expoMessage);
         }

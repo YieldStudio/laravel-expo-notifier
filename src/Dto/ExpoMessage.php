@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace YieldStudio\LaravelExpoNotifier\Services\Dto;
+namespace YieldStudio\LaravelExpoNotifier\Dto;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
