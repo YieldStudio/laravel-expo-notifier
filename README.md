@@ -1,6 +1,6 @@
 # laravel-expo-notifier
 
-Easily send Exponent Notifications with Laravel notifier.
+Easily manage Expo notifications with Laravel. Support batched notifications.
 
 [![Latest Version](https://img.shields.io/github/release/yieldstudio/laravel-expo-notifier?style=flat-square)](https://github.com/yieldstudio/laravel-expo-notifier/releases)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/yieldstudio/laravel-expo-notifier/tests?style=flat-square)](https://github.com/yieldstudio/laravel-expo-notifier/actions/workflows/tests.yml)
