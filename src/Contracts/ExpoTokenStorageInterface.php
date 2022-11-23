@@ -10,5 +10,5 @@ interface ExpoTokenStorageInterface
 {
     public function store(array $data): ExpoToken;
 
-    public function delete(array $tokens): void;
+    public function delete(string|array $tokens): void;
 }
