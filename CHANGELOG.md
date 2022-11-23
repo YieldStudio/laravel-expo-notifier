@@ -4,6 +4,14 @@ All notable changes to `laravel-expo-notifier` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 0.0.2 - 2022-11-23
+
+### What's Changed
+
+- Add possibility to delete one value by @dtangdev in https://github.com/YieldStudio/laravel-expo-notifier/pull/5
+
+**Full Changelog**: https://github.com/YieldStudio/laravel-expo-notifier/compare/0.0.1...0.0.2
+
 ## 0.0.1 - 2022-11-18
 
 ### What's Changed
