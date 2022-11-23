@@ -17,7 +17,7 @@ interface ExpoTicketStorageInterface
      */
     public function retrieve(int $amount = 1000): Collection;
 
-    public function delete(array $ticketIds): void;
+    public function delete(string|array $ticketIds): void;
 
     public function count(): int;
 }

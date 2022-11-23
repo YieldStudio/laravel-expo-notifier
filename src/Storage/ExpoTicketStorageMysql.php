@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace YieldStudio\LaravelExpoNotifier\Storage;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTicketStorageInterface;
 use YieldStudio\LaravelExpoNotifier\Dto\ExpoTicket as ExpoTicketDto;
@@ -29,8 +30,9 @@ class ExpoTicketStorageMysql implements ExpoTicketStorageInterface
         return ExpoTicketDto::make($expoTicket->ticket_id, $expoTicket->token);
     }
 
-    public function delete(array $ticketIds): void
+    public function delete(string|array $ticketIds): void
     {
+        $ticketIds = Arr::wrap($ticketIds);
         ExpoTicket::query()->whereIn('ticket_id', $ticketIds)->delete();
     }
 
