@@ -48,7 +48,7 @@ class CheckTickets
         $tickets->each(function (ExpoTicket $ticket) use ($receipts, &$ticketsToDelete) {
             $receipt = $receipts->get($ticket->id);
 
-            if (in_array($receipt->status, [ExpoResponseStatus::OK->value, ExpoResponseStatus::ERROR->value])) {
+            if (! is_null($receipt) && in_array($receipt->status, [ExpoResponseStatus::OK->value, ExpoResponseStatus::ERROR->value])) {
                 if (
                     is_array($receipt->details) &&
                     array_key_exists('error', $receipt->details) &&
