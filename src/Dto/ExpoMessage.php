@@ -10,36 +10,41 @@ use Illuminate\Contracts\Support\Jsonable;
 /**
  * @see https://github.com/Alymosul/laravel-exponent-push-notifications/blob/master/src/ExpoMessage.php
  * @author Alymosul<aly.suleiman@kfzteile24.de>
- * @author David Tang<dtang.dev@gmail.com>
+ * @author David Tang<david@yieldstudio.fr>
+ * @author James Hemery<james@yieldstudio.fr>
  */
 final class ExpoMessage implements Jsonable, Arrayable
 {
     public array $to;
 
-    public string $title;
+    public ?string $title = null;
 
-    public string $body;
+    /** iOS only */
+    public ?string $subtitle = null;
 
-    public ?string $sound = 'default';
+    public ?string $body = null;
 
-    public int $badge = 0;
+    /** iOS only */
+    public ?string $sound = null;
 
-    public int $ttl = 0;
+    /** iOS only */
+    public ?int $badge = null;
 
-    public string $channelId;
+    public ?int $ttl = null;
 
-    public string $jsonData = '{}';
+    /** Android only */
+    public ?string $channelId = null;
+
+    public ?string $jsonData = null;
 
     public string $priority = 'default';
 
-    public static function create(string $body = ''): ExpoMessage
-    {
-        return new ExpoMessage($body);
-    }
+    /** iOS only */
+    public bool $mutableContent = false;
 
-    public function __construct(string $body = '')
+    public static function create(): ExpoMessage
     {
-        $this->body = $body;
+        return new ExpoMessage();
     }
 
     public function to(?array $value): self
@@ -53,14 +58,21 @@ final class ExpoMessage implements Jsonable, Arrayable
         return $this;
     }
 
-    public function title(string $value): self
+    public function title(?string $value): self
     {
         $this->title = $value;
 
         return $this;
     }
 
-    public function body(string $value): self
+    public function subtitle(?string $value): self
+    {
+        $this->subtitle = $value;
+
+        return $this;
+    }
+
+    public function body(?string $value): self
     {
         $this->body = $value;
 
@@ -81,37 +93,34 @@ final class ExpoMessage implements Jsonable, Arrayable
         return $this;
     }
 
-    public function badge(int $value): self
+    public function badge(?int $value): self
     {
         $this->badge = $value;
 
         return $this;
     }
 
-    public function ttl(int $ttl): self
+    public function ttl(?int $ttl): self
     {
         $this->ttl = $ttl;
 
         return $this;
     }
 
-    public function channelId(string $channelId): self
+    public function channelId(?string $channelId): self
     {
         $this->channelId = $channelId;
 
         return $this;
     }
 
-    public function jsonData(array|string $data): self
+    public function jsonData(array|string|null $data): self
     {
-        if (is_array($data)) {
-            $data = json_encode($data);
-        } elseif (is_string($data)) {
-            @json_decode($data);
-
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                throw new \Exception('Invalid json format passed to the setJsonData().');
-            }
+        if (is_string($data)) {
+            // Check JSON validity
+            json_decode($data, null, 512, JSON_THROW_ON_ERROR);
+        } elseif (! is_null($data)) {
+            $data = json_encode($data, JSON_THROW_ON_ERROR);
         }
 
         $this->jsonData = $data;
@@ -126,28 +135,34 @@ final class ExpoMessage implements Jsonable, Arrayable
         return $this;
     }
 
+    public function mutableContent(bool $mutableContent): self
+    {
+        $this->mutableContent = $mutableContent;
+
+        return $this;
+    }
+
     public function toArray(): array
     {
-        $message = [
+        return [
             'to' => $this->to,
             'title' => $this->title,
+            'subtitle' => $this->subtitle,
             'body' => $this->body,
             'sound' => $this->sound,
             'badge' => $this->badge,
             'ttl' => $this->ttl,
             'data' => $this->jsonData,
             'priority' => $this->priority,
+            'channelId' => $this->channelId,
+            'mutableContent' => $this->mutableContent,
         ];
-        if (filled($this->channelId)) {
-            $message['channelId'] = $this->channelId;
-        }
-
-        return $message;
     }
 
     public function toExpoData(): array
     {
-        return $this->toArray();
+        return array_filter($this->toArray(), fn ($item) => ! is_null($item));
+        ;
     }
 
     public function toJson($options = JSON_THROW_ON_ERROR): bool|string
@@ -159,21 +174,9 @@ final class ExpoMessage implements Jsonable, Arrayable
     {
         $data = json_decode($jsonData, true);
 
-        $expoMessage = (new self())
-            ->to($data['to'])
-            ->title($data['title'])
-            ->body($data['body'])
-            ->badge($data['badge'])
-            ->priority($data['priority'])
-            ->ttl($data['ttl'])
-            ->jsonData($data['data']);
-
-        if (filled($data['channelId'])) {
-            $expoMessage->channelId($data['channelId']);
-        }
-
-        if (filled($data['sound'])) {
-            $expoMessage->enableSound();
+        $expoMessage = new self();
+        foreach ($data as $key => $value) {
+            $expoMessage->{$key} = $value;
         }
 
         return $expoMessage;

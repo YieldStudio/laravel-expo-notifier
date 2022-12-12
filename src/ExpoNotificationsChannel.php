@@ -26,6 +26,10 @@ final class ExpoNotificationsChannel
         /** @var ExpoMessage $expoMessage */
         $expoMessage = $notification->toExpoNotification($notifiable);
 
+        if (empty($expoMessage->to)) {
+            return;
+        }
+
         if ($notification instanceof UrgentExpoNotificationInterface && $notification->isUrgent()) {
             $response = $this->expoNotificationsService->notify($expoMessage);
 

@@ -21,9 +21,9 @@ final class ExpoNotificationsService
     private PendingRequest $http;
 
     public function __construct(
-        string $apiUrl,
-        string $host,
-        protected readonly ExpoTokenStorageInterface $tokenStorage,
+        string                                        $apiUrl,
+        string                                        $host,
+        protected readonly ExpoTokenStorageInterface  $tokenStorage,
         protected readonly ExpoTicketStorageInterface $ticketStorage
     ) {
         $this->http = Http::withHeaders([
@@ -45,7 +45,7 @@ final class ExpoNotificationsService
             $expoMessages = [$expoMessages];
         }
 
-        $response = $this->http->post('/send', $expoMessages);
+        $response = $this->http->post('/send', array_map(fn ($item) => $item->toExpoData(), $expoMessages));
         if (! $response->successful()) {
             throw new ExpoNotificationsException($response->toPsrResponse());
         }
