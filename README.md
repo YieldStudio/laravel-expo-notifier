@@ -65,14 +65,19 @@ php artisan expo:tickets:check
 
 You may create schedules to execute these commands.
 
-### Priority management
+### Batch support
 
-You can implement the following interface on your notification :
-```
-YieldStudio\LaravelExpoNotifier\Contracts\UrgentExpoNotificationInterface
+You can send notification in the next batch : 
+```php
+(new ExpoMessage())
+    ->to([$notifiable->expoTokens->value])
+    ->title('A beautiful title')
+    ->body('This is a content')
+    ->channelId('default')
+    ->shouldBatch();
 ```
 
-If method **isUrgent() return false**, your notification will be saved into the database and considered as **Pending**.
+Don't forget to schedule the `expo:notifications:send` command.
 
 ## Unit tests
 

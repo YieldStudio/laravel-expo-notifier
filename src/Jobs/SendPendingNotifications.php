@@ -6,7 +6,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoPendingNotificationStorageInterface;
-use YieldStudio\LaravelExpoNotifier\Dto\ExpoMessage;
 use YieldStudio\LaravelExpoNotifier\Dto\ExpoNotification;
 use YieldStudio\LaravelExpoNotifier\ExpoNotificationsService;
 
@@ -17,7 +16,7 @@ class SendPendingNotifications
     use Queueable;
 
     public function handle(
-        ExpoNotificationsService                $expoNotificationsService,
+        ExpoNotificationsService $expoNotificationsService,
         ExpoPendingNotificationStorageInterface $expoNotification,
     ): void {
         $sent = collect();
@@ -35,15 +34,10 @@ class SendPendingNotifications
             $expoMessages = $notifications->pluck('message');
             $ids = $notifications->pluck('id');
 
-            $response = $expoNotificationsService->notify(
-                $expoMessages->map(fn (ExpoMessage $expoMessage) => $expoMessage->toExpoData())->toArray()
-            );
+            $expoNotificationsService->notify($expoMessages);
 
             $sent = $sent->merge($ids);
             $expoNotification->delete($ids->toArray());
-
-            $tokens = $expoMessages->pluck('to')->flatten();
-            $expoNotificationsService->storeTicketsFromResponse($tokens, $response);
         }
     }
 }
