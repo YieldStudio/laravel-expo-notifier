@@ -4,6 +4,18 @@ All notable changes to `laravel-expo-notifier` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 0.0.4 - 2022-12-13
+
+### What's Changed
+
+- Delete behavior that batch notifications by default
+- Delete UrgentExpoNotificationInterface
+- Add shouldBatch method on ExpoMessage
+- Refactor internal sending
+- Add InvalidExpoToken event and DeleteInvalidExpoToken listener (optionnal)
+
+**Full Changelog**: https://github.com/YieldStudio/laravel-expo-notifier/compare/0.0.3...0.0.4
+
 ## 0.0.3 - 2022-12-12
 
 ### What's Changed
