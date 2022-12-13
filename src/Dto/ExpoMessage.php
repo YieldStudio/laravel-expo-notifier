@@ -42,6 +42,8 @@ final class ExpoMessage implements Jsonable, Arrayable
     /** iOS only */
     public bool $mutableContent = false;
 
+    public bool $shouldBatch = false;
+
     public static function create(): ExpoMessage
     {
         return new ExpoMessage();
@@ -135,9 +137,16 @@ final class ExpoMessage implements Jsonable, Arrayable
         return $this;
     }
 
-    public function mutableContent(bool $mutableContent): self
+    public function mutableContent(bool $mutableContent = true): self
     {
         $this->mutableContent = $mutableContent;
+
+        return $this;
+    }
+
+    public function shouldBatch(bool $shouldBatch = true): self
+    {
+        $this->shouldBatch = $shouldBatch;
 
         return $this;
     }
@@ -162,7 +171,6 @@ final class ExpoMessage implements Jsonable, Arrayable
     public function toExpoData(): array
     {
         return array_filter($this->toArray(), fn ($item) => ! is_null($item));
-        ;
     }
 
     public function toJson($options = JSON_THROW_ON_ERROR): bool|string
