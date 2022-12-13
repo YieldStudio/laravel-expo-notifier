@@ -142,7 +142,7 @@ final class ExpoNotificationsService
                         array_key_exists('error', $ticket->details) &&
                         $ticket->details['error'] === ExpoResponseStatus::DEVICE_NOT_REGISTERED->value
                     ) {
-                        dispatch(new InvalidExpoToken($tokens->get($index)));
+                        event(new InvalidExpoToken($tokens->get($index)));
                     }
                 } else {
                     $this->ticketStorage->store($ticket->ticketId, $tokens->get($index));

@@ -54,7 +54,7 @@ class CheckTickets
                     array_key_exists('error', $receipt->details) &&
                     $receipt->details['error'] === ExpoResponseStatus::DEVICE_NOT_REGISTERED->value
                 ) {
-                    dispatch(new InvalidExpoToken($ticket->token));
+                    event(new InvalidExpoToken($ticket->token));
 
                     return;
                 }
