@@ -7,8 +7,12 @@ use YieldStudio\LaravelExpoNotifier\Events\InvalidExpoToken;
 
 class DeleteInvalidExpoToken
 {
-    public function handle(InvalidExpoToken $event, ExpoTokenStorageInterface $tokenStorage): void
+    public function __construct(protected readonly ExpoTokenStorageInterface $tokenStorage)
     {
-        $tokenStorage->delete($event->token);
+    }
+
+    public function handle(InvalidExpoToken $event): void
+    {
+        $this->tokenStorage->delete($event->token);
     }
 }
