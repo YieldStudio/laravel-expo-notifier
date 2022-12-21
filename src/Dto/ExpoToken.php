@@ -9,12 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 
 final class ExpoToken implements Arrayable
 {
-    public string $id;
-
+    public int|string $id;
     public string $value;
     public Model $owner;
 
-    public static function make(string $id, string $value, Model $owner): ExpoToken
+    public static function make(int|string $id, string $value, Model $owner): ExpoToken
     {
         return (new ExpoToken())
             ->id($id)
@@ -22,7 +21,7 @@ final class ExpoToken implements Arrayable
             ->owner($owner);
     }
 
-    public function id(string $id): self
+    public function id(int|string $id): self
     {
         $this->id = $id;
 

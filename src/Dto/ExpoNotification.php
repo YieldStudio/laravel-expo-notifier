@@ -8,18 +8,18 @@ use Illuminate\Contracts\Support\Arrayable;
 
 final class ExpoNotification implements Arrayable
 {
-    public int $id;
+    public int|string $id;
 
     public ExpoMessage $message;
 
-    public static function make(int $id, ExpoMessage $message): ExpoNotification
+    public static function make(int|string $id, ExpoMessage $message): ExpoNotification
     {
         return (new ExpoNotification())
             ->id($id)
             ->message($message);
     }
 
-    public function id(int $value): self
+    public function id(int|string $value): self
     {
         $this->id = $value;
 
