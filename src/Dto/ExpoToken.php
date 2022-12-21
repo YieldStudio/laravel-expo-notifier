@@ -10,7 +10,9 @@ use Illuminate\Database\Eloquent\Model;
 final class ExpoToken implements Arrayable
 {
     public int|string $id;
+
     public string $value;
+
     public Model $owner;
 
     public static function make(int|string $id, string $value, Model $owner): ExpoToken
