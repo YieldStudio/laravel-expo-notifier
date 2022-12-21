@@ -5,14 +5,14 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class () extends Migration {
-    public function up()
+    public function up(): void
     {
         Schema::table('expo_tokens', function (Blueprint $table) {
             $table->unique(['value', 'owner_type', 'owner_id']);
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('expo_tokens', function (Blueprint $table) {
             $table->dropUnique(['value', 'owner_type', 'owner_id']);
