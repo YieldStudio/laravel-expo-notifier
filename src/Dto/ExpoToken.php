@@ -9,6 +9,7 @@ use Illuminate\Contracts\Support\Arrayable;
 final class ExpoToken implements Arrayable
 {
     public string $id;
+
     public string $value;
 
     public static function make(string $id, string $value): ExpoToken

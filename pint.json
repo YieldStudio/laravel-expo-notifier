@@ -1,0 +1,20 @@
+{
+    "preset": "laravel",
+    "rules": {
+        "declare_strict_types": true,
+        "method_argument_space": {
+            "on_multiline": "ensure_fully_multiline",
+            "keep_multiple_spaces_after_comma": true
+        },
+        "blank_line_before_statement": {
+            "statements": [
+                "break",
+                "continue",
+                "declare",
+                "return",
+                "throw",
+                "try"
+            ]
+        }
+    }
+}

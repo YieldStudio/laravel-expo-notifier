@@ -9,6 +9,7 @@ use Illuminate\Contracts\Support\Arrayable;
 final class ExpoTicket implements Arrayable
 {
     public string $id;
+
     public string $token;
 
     public static function make(string $id, string $token): ExpoTicket
