@@ -8,17 +8,18 @@ use Illuminate\Contracts\Support\Arrayable;
 
 final class ExpoTicket implements Arrayable
 {
-    public string $id;
+    public int|string $id;
+
     public string $token;
 
-    public static function make(string $id, string $token): ExpoTicket
+    public static function make(int|string $id, string $token): ExpoTicket
     {
         return (new ExpoTicket())
             ->id($id)
             ->token($token);
     }
 
-    public function id(string $id): self
+    public function id(int|string $id): self
     {
         $this->id = $id;
 

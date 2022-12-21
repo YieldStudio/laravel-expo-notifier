@@ -9,7 +9,7 @@ use Psr\Http\Message\ResponseInterface;
 
 final class ExpoNotificationsException extends Exception
 {
-    public function __construct(private ResponseInterface $response)
+    public function __construct(private readonly ResponseInterface $response)
     {
         parent::__construct(sprintf(
             'Expo service error: HTTP `%s` response: %s',
