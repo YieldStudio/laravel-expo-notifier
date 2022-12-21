@@ -4,6 +4,14 @@ All notable changes to `laravel-expo-notifier` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 0.0.6 - 2022-12-21
+
+### What's Changed
+
+- fix: dto id type by @JamesHemery in https://github.com/YieldStudio/laravel-expo-notifier/pull/15
+
+**Full Changelog**: https://github.com/YieldStudio/laravel-expo-notifier/compare/0.0.5...0.0.6
+
 ## 0.0.5 - 2022-12-21
 
 ### What's Changed
