@@ -4,6 +4,15 @@ All notable changes to `laravel-expo-notifier` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 0.0.5 - 2022-12-21
+
+### What's Changed
+
+- chore: #2 replace cs fixer by pint by @JamesHemery in https://github.com/YieldStudio/laravel-expo-notifier/pull/13
+- fix: #11 unique token owner by @JamesHemery in https://github.com/YieldStudio/laravel-expo-notifier/pull/12
+
+**Full Changelog**: https://github.com/YieldStudio/laravel-expo-notifier/compare/0.0.4...0.0.5
+
 ## 0.0.4 - 2022-12-13
 
 ### What's Changed
