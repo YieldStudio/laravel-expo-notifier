@@ -9,8 +9,11 @@ use Illuminate\Contracts\Support\Arrayable;
 final class PushTicketResponse implements Arrayable
 {
     public string $status;
+
     public ?string $ticketId = null;
+
     public ?string $message = null;
+
     public ?array $details = null;
 
     public function status(string $status): self

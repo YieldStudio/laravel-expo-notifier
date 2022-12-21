@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace YieldStudio\LaravelExpoNotifier\Contracts;
 
 use Illuminate\Support\Collection;
@@ -11,7 +13,7 @@ interface ExpoPendingNotificationStorageInterface
     public function store(ExpoMessage $expoMessage): ExpoNotification;
 
     /**
-     * @param int $amount
+     * @param  int  $amount
      * @return Collection<int, ExpoNotification>
      */
     public function retrieve(int $amount = 100): Collection;

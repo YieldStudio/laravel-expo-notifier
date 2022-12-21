@@ -9,6 +9,7 @@ use Illuminate\Contracts\Support\Jsonable;
 
 /**
  * @see https://github.com/Alymosul/laravel-exponent-push-notifications/blob/master/src/ExpoMessage.php
+ *
  * @author Alymosul<aly.suleiman@kfzteile24.de>
  * @author David Tang<david@yieldstudio.fr>
  * @author James Hemery<james@yieldstudio.fr>

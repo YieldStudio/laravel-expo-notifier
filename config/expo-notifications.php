@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use YieldStudio\LaravelExpoNotifier\Storage\ExpoPendingNotificationStorageMysql;
 use YieldStudio\LaravelExpoNotifier\Storage\ExpoTicketStorageMysql;
 use YieldStudio\LaravelExpoNotifier\Storage\ExpoTokenStorageMysql;

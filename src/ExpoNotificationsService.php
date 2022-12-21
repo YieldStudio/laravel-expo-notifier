@@ -36,8 +36,9 @@ final class ExpoNotificationsService
     }
 
     /**
-     * @param ExpoMessage|ExpoMessage[]|Collection<int, ExpoMessage> $expoMessages
+     * @param  ExpoMessage|ExpoMessage[]|Collection<int, ExpoMessage>  $expoMessages
      * @return Collection<int, PushTicketResponse>
+     *
      * @throws ExpoNotificationsException
      */
     public function notify(ExpoMessage|Collection|array $expoMessages): Collection
@@ -91,8 +92,9 @@ final class ExpoNotificationsService
     }
 
     /**
-     * @param Collection<int, string>|array $tokenIds
+     * @param  Collection<int, string>|array  $tokenIds
      * @return Collection<int, PushReceiptResponse>
+     *
      * @throws ExpoNotificationsException
      */
     public function receipts(Collection|array $tokenIds): Collection
@@ -127,8 +129,8 @@ final class ExpoNotificationsService
     }
 
     /**
-     * @param Collection<int, string> $tokens
-     * @param Collection<int, PushTicketResponse> $tickets
+     * @param  Collection<int, string>  $tokens
+     * @param  Collection<int, PushTicketResponse>  $tickets
      * @return void
      */
     private function checkAndStoreTickets(Collection $tokens, Collection $tickets): void

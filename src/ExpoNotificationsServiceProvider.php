@@ -44,7 +44,7 @@ final class ExpoNotificationsServiceProvider extends ServiceProvider
         ], 'expo-notifications-config');
 
         $this->publishes([
-            __DIR__ . '/../database/migrations' => database_path('migrations'),
+            __DIR__.'/../database/migrations' => database_path('migrations'),
         ], 'expo-notifications-migration');
 
         $this->commands([

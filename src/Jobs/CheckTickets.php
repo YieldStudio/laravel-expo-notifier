@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace YieldStudio\LaravelExpoNotifier\Jobs;
 
 use Illuminate\Bus\Queueable;
@@ -19,7 +21,7 @@ class CheckTickets
     use Queueable;
 
     public function handle(
-        ExpoNotificationsService   $expoNotificationsService,
+        ExpoNotificationsService $expoNotificationsService,
         ExpoTicketStorageInterface $ticketStorage
     ): void {
         while ($ticketStorage->count() > 0) {
@@ -36,9 +38,9 @@ class CheckTickets
     }
 
     /**
-     * @param ExpoTicketStorageInterface $ticketStorage
-     * @param Collection $tickets
-     * @param Collection $receipts
+     * @param  ExpoTicketStorageInterface  $ticketStorage
+     * @param  Collection  $tickets
+     * @param  Collection  $receipts
      * @return void
      */
     protected function check(ExpoTicketStorageInterface $ticketStorage, Collection $tickets, Collection $receipts): void
