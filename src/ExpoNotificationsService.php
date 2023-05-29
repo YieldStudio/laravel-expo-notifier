@@ -131,7 +131,6 @@ final class ExpoNotificationsService
     /**
      * @param  Collection<int, string>  $tokens
      * @param  Collection<int, PushTicketResponse>  $tickets
-     * @return void
      */
     private function checkAndStoreTickets(Collection $tokens, Collection $tickets): void
     {
