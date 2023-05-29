@@ -4,6 +4,14 @@ All notable changes to `laravel-expo-notifier` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 0.0.7 - 2023-05-29
+
+### What's Changed
+
+- Laravel 10 support by @JamesHemery in https://github.com/YieldStudio/laravel-expo-notifier/pull/16
+
+**Full Changelog**: https://github.com/YieldStudio/laravel-expo-notifier/compare/0.0.6...0.0.7
+
 ## 0.0.6 - 2022-12-21
 
 ### What's Changed
