@@ -3,7 +3,7 @@
 Easily manage Expo notifications with Laravel. Support batched notifications.
 
 [![Latest Version](https://img.shields.io/github/release/yieldstudio/laravel-expo-notifier?style=flat-square)](https://github.com/yieldstudio/laravel-expo-notifier/releases)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/yieldstudio/laravel-expo-notifier/tests?style=flat-square)](https://github.com/yieldstudio/laravel-expo-notifier/actions/workflows/tests.yml)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/yieldstudio/laravel-expo-notifier/tests.yml?branch=main&style=flat-square)](https://github.com/yieldstudio/laravel-expo-notifier/actions/workflows/tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/yieldstudio/laravel-expo-notifier?style=flat-square)](https://packagist.org/packages/yieldstudio/laravel-expo-notifier)
 
 > Major version zero (0.y.z) is for initial development. Anything MAY change at any time. The public API SHOULD NOT be considered stable.
