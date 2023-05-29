@@ -13,7 +13,6 @@ interface ExpoPendingNotificationStorageInterface
     public function store(ExpoMessage $expoMessage): ExpoNotification;
 
     /**
-     * @param  int  $amount
      * @return Collection<int, ExpoNotification>
      */
     public function retrieve(int $amount = 100): Collection;

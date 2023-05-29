@@ -37,12 +37,6 @@ class CheckTickets
         }
     }
 
-    /**
-     * @param  ExpoTicketStorageInterface  $ticketStorage
-     * @param  Collection  $tickets
-     * @param  Collection  $receipts
-     * @return void
-     */
     protected function check(ExpoTicketStorageInterface $ticketStorage, Collection $tickets, Collection $receipts): void
     {
         $ticketsToDelete = [];
