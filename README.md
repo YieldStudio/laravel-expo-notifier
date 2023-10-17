@@ -14,7 +14,7 @@ Easily manage Expo notifications with Laravel. Support batched notifications.
 
 ## Configure
 
-You can publish the configuration file with:
+You must publish the configuration file with:
 
 ```shell
 php artisan vendor:publish --provider="YieldStudio\LaravelExpoNotifier\ExpoNotificationsServiceProvider" --tag="expo-notifications-config" --tag="expo-notifications-migration"
