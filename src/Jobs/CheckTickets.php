@@ -17,8 +17,8 @@ use YieldStudio\LaravelExpoNotifier\ExpoNotificationsService;
 class CheckTickets
 {
     use Dispatchable;
-    use SerializesModels;
     use Queueable;
+    use SerializesModels;
 
     public function handle(
         ExpoNotificationsService $expoNotificationsService,

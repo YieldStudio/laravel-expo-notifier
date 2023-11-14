@@ -14,8 +14,8 @@ use YieldStudio\LaravelExpoNotifier\ExpoNotificationsService;
 class SendPendingNotifications
 {
     use Dispatchable;
-    use SerializesModels;
     use Queueable;
+    use SerializesModels;
 
     public function handle(
         ExpoNotificationsService $expoNotificationsService,
