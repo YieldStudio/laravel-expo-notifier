@@ -4,6 +4,19 @@ All notable changes to `laravel-expo-notifier` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 0.0.8 - 2023-11-14
+
+### What's Changed
+
+- Update README.md to explicitly say publishing the configuration is a must by @andonovn in https://github.com/YieldStudio/laravel-expo-notifier/pull/17
+- Prevent json_decode on responseItem details which is array by @eightyfive in https://github.com/YieldStudio/laravel-expo-notifier/pull/20
+
+### New Contributors
+
+- @andonovn made their first contribution in https://github.com/YieldStudio/laravel-expo-notifier/pull/17
+
+**Full Changelog**: https://github.com/YieldStudio/laravel-expo-notifier/compare/0.0.7...0.0.8
+
 ## 0.0.7 - 2023-05-29
 
 ### What's Changed
