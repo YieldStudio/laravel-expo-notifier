@@ -14,7 +14,7 @@ use Illuminate\Contracts\Support\Jsonable;
  * @author David Tang<david@yieldstudio.fr>
  * @author James Hemery<james@yieldstudio.fr>
  */
-final class ExpoMessage implements Jsonable, Arrayable
+final class ExpoMessage implements Arrayable, Jsonable
 {
     public array $to;
 
