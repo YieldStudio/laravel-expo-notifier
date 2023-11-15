@@ -4,6 +4,14 @@ All notable changes to `laravel-expo-notifier` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 0.0.10 - 2023-11-15
+
+### What's Changed
+
+- add missing params to json_decode by @dtangdev in https://github.com/YieldStudio/laravel-expo-notifier/pull/23
+
+**Full Changelog**: https://github.com/YieldStudio/laravel-expo-notifier/compare/0.0.9...0.0.10
+
 ## 0.0.9 - 2023-11-15
 
 ### What's Changed
