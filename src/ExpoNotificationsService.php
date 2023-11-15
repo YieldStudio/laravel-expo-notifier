@@ -119,9 +119,11 @@ final class ExpoNotificationsService
                 ->status($responseItem['status']);
 
             if ($responseItem['status'] === ExpoResponseStatus::ERROR->value) {
+                $responseItemDetails = is_string($responseItem['details']) ? json_decode($responseItem['details']) : $responseItem['details'];
+
                 $data
                     ->message($responseItem['message'])
-                    ->details($responseItem['details']);
+                    ->details($responseItemDetails);
             }
 
             return $data;
