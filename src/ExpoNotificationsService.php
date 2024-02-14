@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace YieldStudio\LaravelExpoNotifier;
 
 use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
+use YieldStudio\LaravelExpoNotifier\Contracts\ExpoNotificationsServiceInterface;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoPendingNotificationStorageInterface;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTicketStorageInterface;
 use YieldStudio\LaravelExpoNotifier\Dto\ExpoMessage;
@@ -17,9 +19,21 @@ use YieldStudio\LaravelExpoNotifier\Enums\ExpoResponseStatus;
 use YieldStudio\LaravelExpoNotifier\Events\InvalidExpoToken;
 use YieldStudio\LaravelExpoNotifier\Exceptions\ExpoNotificationsException;
 
-final class ExpoNotificationsService
+final class ExpoNotificationsService implements ExpoNotificationsServiceInterface
 {
+    public const PUSH_NOTIFICATIONS_PER_REQUEST_LIMIT = 100;
+
+    public const SEND_NOTIFICATION_ENDPOINT = '/send';
+
     private PendingRequest $http;
+
+    private ?Collection $expoMessages;
+
+    private ?Collection $notificationsToSend;
+
+    private ?Collection $notificationChunks;
+
+    private Collection $tickets;
 
     public function __construct(
         string $apiUrl,
@@ -33,62 +47,22 @@ final class ExpoNotificationsService
             'accept-encoding' => 'gzip, deflate',
             'content-type' => 'application/json',
         ])->baseUrl($apiUrl);
+
+        $this->tickets = collect();
     }
 
     /**
      * @param  ExpoMessage|ExpoMessage[]|Collection<int, ExpoMessage>  $expoMessages
      * @return Collection<int, PushTicketResponse>
-     *
-     * @throws ExpoNotificationsException
      */
     public function notify(ExpoMessage|Collection|array $expoMessages): Collection
     {
         /** @var Collection<int, ExpoMessage> $expoMessages */
-        $expoMessages = $expoMessages instanceof Collection ? $expoMessages : collect(Arr::wrap($expoMessages));
+        $this->expoMessages = $expoMessages instanceof Collection ? $expoMessages : collect(Arr::wrap($expoMessages));
 
-        $shouldBatchFilter = fn (ExpoMessage $message) => $message->shouldBatch;
-
-        // Store notifications to send in the next batch
-        $expoMessages
-            ->filter($shouldBatchFilter)
-            ->each(fn (ExpoMessage $message) => $this->notificationStorage->store($message));
-
-        // Filter notifications to send now
-        $toSend = $expoMessages
-            ->reject($shouldBatchFilter)
-            ->map(fn (ExpoMessage $message) => $message->toExpoData())
-            ->values();
-
-        if ($toSend->isEmpty()) {
-            return collect();
-        }
-
-        $response = $this->http->post('/send', $toSend->toArray());
-        if (! $response->successful()) {
-            throw new ExpoNotificationsException($response->toPsrResponse());
-        }
-
-        $data = json_decode($response->body(), true);
-        if (! empty($data['errors'])) {
-            throw new ExpoNotificationsException($response->toPsrResponse());
-        }
-
-        $tickets = collect($data['data'])->map(function ($responseItem) {
-            if ($responseItem['status'] === ExpoResponseStatus::ERROR->value) {
-                return (new PushTicketResponse())
-                    ->status($responseItem['status'])
-                    ->message($responseItem['message'])
-                    ->details($responseItem['details']);
-            }
-
-            return (new PushTicketResponse())
-                ->status($responseItem['status'])
-                ->ticketId($responseItem['id']);
-        });
-
-        $this->checkAndStoreTickets($toSend->pluck('to')->flatten(), $tickets);
-
-        return $tickets;
+        return $this->storeNotificationsToSendInTheNextBatch()
+            ->prepareNotificationsToSendNow()
+            ->sendNotifications();
     }
 
     /**
@@ -130,13 +104,17 @@ final class ExpoNotificationsService
         });
     }
 
+    public function getNotificationChunks(): Collection
+    {
+        return $this->notificationChunks ?? collect();
+    }
+
     /**
      * @param  Collection<int, string>  $tokens
-     * @param  Collection<int, PushTicketResponse>  $tickets
      */
-    private function checkAndStoreTickets(Collection $tokens, Collection $tickets): void
+    private function checkAndStoreTickets(Collection $tokens): void
     {
-        $tickets
+        $this->tickets
             ->intersectByKeys($tokens)
             ->each(function (PushTicketResponse $ticket, $index) use ($tokens) {
                 if ($ticket->status === ExpoResponseStatus::ERROR->value) {
@@ -151,5 +129,89 @@ final class ExpoNotificationsService
                     $this->ticketStorage->store($ticket->ticketId, $tokens->get($index));
                 }
             });
+    }
+
+    private function storeNotificationsToSendInTheNextBatch(): ExpoNotificationsService
+    {
+        $this->expoMessages
+            ->filter(fn (ExpoMessage $message) => $message->shouldBatch)
+            ->each(fn (ExpoMessage $message) => $this->notificationStorage->store($message));
+
+        return $this;
+    }
+
+    private function prepareNotificationsToSendNow(): ExpoNotificationsService
+    {
+        $this->notificationsToSend = $this->expoMessages
+            ->reject(fn (ExpoMessage $message) => $message->shouldBatch)
+            ->map(fn (ExpoMessage $message) => $message->toExpoData())
+            ->values();
+
+        // Splits into multiples chunks of max limitation
+        $this->notificationChunks = $this->notificationsToSend->chunk(self::PUSH_NOTIFICATIONS_PER_REQUEST_LIMIT);
+
+        $this->checkAndStoreTickets($this->notificationsToSend->pluck('to')->flatten());
+
+        return $this;
+    }
+
+    private function sendNotifications(): Collection
+    {
+        if ($this->notificationsToSend->isEmpty()) {
+            return collect();
+        }
+
+        $this->notificationChunks
+            ->each(
+                fn ($chunk, $index) => $this->sendNotificationsChunk($chunk->toArray())
+            );
+
+        $this->checkAndStoreTickets($this->notificationsToSend->pluck('to')->flatten());
+
+        return $this->tickets;
+    }
+
+    private function handleSendNotificationsResponse(Response $response): void
+    {
+        $data = json_decode($response->body(), true, 512, JSON_THROW_ON_ERROR);
+        if (! empty($data['errors'])) {
+            throw new ExpoNotificationsException($response->toPsrResponse());
+        }
+
+        $this->setTicketsFromData($data);
+    }
+
+    private function setTicketsFromData(array $data): ExpoNotificationsService
+    {
+        collect($data['data'])
+            ->each(function ($responseItem) {
+                if ($responseItem['status'] === ExpoResponseStatus::ERROR->value) {
+                    $this->tickets->push(
+                        (new PushTicketResponse())
+                            ->status($responseItem['status'])
+                            ->message($responseItem['message'])
+                            ->details($responseItem['details'])
+                    );
+                } else {
+                    $this->tickets->push(
+                        (new PushTicketResponse())
+                            ->status($responseItem['status'])
+                            ->ticketId($responseItem['id'])
+                    );
+                }
+            });
+
+        return $this;
+    }
+
+    private function sendNotificationsChunk(array $chunk)
+    {
+        $response = $this->http->post(self::SEND_NOTIFICATION_ENDPOINT, $chunk);
+
+        if (! $response->successful()) {
+            throw new ExpoNotificationsException($response->toPsrResponse());
+        }
+
+        $this->handleSendNotificationsResponse($response);
     }
 }

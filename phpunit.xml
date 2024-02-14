@@ -19,4 +19,9 @@
             <directory>src/</directory>
         </whitelist>
     </filter>
+    <php>
+        <env name="APP_KEY" value="AckfSECXIvnK5r28GVIWUAxmbBSjTsmF"/>
+        <env name="DB_CONNECTION" value="testing"/>
+        <env name="ENABLE_HTTPS_SUPPORT" value="false"/>
+    </php>
 </phpunit>

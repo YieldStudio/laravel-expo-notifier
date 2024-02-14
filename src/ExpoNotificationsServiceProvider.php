@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use YieldStudio\LaravelExpoNotifier\Commands\CheckTickets;
 use YieldStudio\LaravelExpoNotifier\Commands\SendPendingNotifications;
+use YieldStudio\LaravelExpoNotifier\Contracts\ExpoNotificationsServiceInterface;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoPendingNotificationStorageInterface;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTicketStorageInterface;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTokenStorageInterface;
@@ -22,7 +23,7 @@ final class ExpoNotificationsServiceProvider extends ServiceProvider
         $this->app->bind(ExpoTicketStorageInterface::class, config('expo-notifications.drivers.ticket'));
         $this->app->bind(ExpoPendingNotificationStorageInterface::class, config('expo-notifications.drivers.notification'));
 
-        $this->app->bind(ExpoNotificationsService::class, function ($app) {
+        $this->app->bind(ExpoNotificationsServiceInterface::class, function ($app) {
             $apiUrl = config('expo-notifications.service.api_url');
             $host = config('expo-notifications.service.host');
 

@@ -8,11 +8,11 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Collection;
+use YieldStudio\LaravelExpoNotifier\Contracts\ExpoNotificationsServiceInterface;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTicketStorageInterface;
 use YieldStudio\LaravelExpoNotifier\Dto\ExpoTicket;
 use YieldStudio\LaravelExpoNotifier\Enums\ExpoResponseStatus;
 use YieldStudio\LaravelExpoNotifier\Events\InvalidExpoToken;
-use YieldStudio\LaravelExpoNotifier\ExpoNotificationsService;
 
 class CheckTickets
 {
@@ -21,7 +21,7 @@ class CheckTickets
     use SerializesModels;
 
     public function handle(
-        ExpoNotificationsService $expoNotificationsService,
+        ExpoNotificationsServiceInterface $expoNotificationsService,
         ExpoTicketStorageInterface $ticketStorage
     ): void {
         while ($ticketStorage->count() > 0) {

@@ -7,9 +7,9 @@ namespace YieldStudio\LaravelExpoNotifier\Jobs;
 use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use YieldStudio\LaravelExpoNotifier\Contracts\ExpoNotificationsServiceInterface;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoPendingNotificationStorageInterface;
 use YieldStudio\LaravelExpoNotifier\Dto\ExpoNotification;
-use YieldStudio\LaravelExpoNotifier\ExpoNotificationsService;
 
 class SendPendingNotifications
 {
@@ -18,7 +18,7 @@ class SendPendingNotifications
     use SerializesModels;
 
     public function handle(
-        ExpoNotificationsService $expoNotificationsService,
+        ExpoNotificationsServiceInterface $expoNotificationsService,
         ExpoPendingNotificationStorageInterface $expoNotification,
     ): void {
         $sent = collect();
