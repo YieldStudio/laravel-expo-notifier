@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace YieldStudio\LaravelExpoNotifier\Tests;
 
+use Faker\Factory;
+use Faker\Generator;
 use Orchestra\Testbench\TestCase as Orchestra;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoNotificationsServiceInterface;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoPendingNotificationStorageInterface;
@@ -60,5 +62,10 @@ class TestCase extends Orchestra
             'ticket' => ExpoTicketStorageMysql::class,
             'notification' => ExpoPendingNotificationStorageMysql::class,
         ]);
+    }
+
+    protected function fake(): Generator
+    {
+        return Factory::create();
     }
 }

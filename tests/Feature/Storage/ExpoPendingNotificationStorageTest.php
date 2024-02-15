@@ -12,7 +12,7 @@ beforeEach(function () {
     for ($i = 0; $i < 120; $i++) {
         ExpoNotification::create([
             'data' => json_encode([
-                'foo' => fake()->slug,
+                'foo' => $this->fake()->slug,
             ], JSON_THROW_ON_ERROR),
         ]);
     }
