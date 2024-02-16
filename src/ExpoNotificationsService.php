@@ -150,7 +150,6 @@ final class ExpoNotificationsService implements ExpoNotificationsServiceInterfac
         // Splits into multiples chunks of max limitation
         $this->notificationChunks = $this->notificationsToSend->chunk(self::PUSH_NOTIFICATIONS_PER_REQUEST_LIMIT);
 
-
         return $this;
     }
 
