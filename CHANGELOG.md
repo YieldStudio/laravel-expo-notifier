@@ -4,6 +4,18 @@ All notable changes to `laravel-expo-notifier` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 0.0.11 - 2024-02-16
+
+### What's Changed
+
+* bugfix: adds tests and fix bug sending more than 100 not batched notifications  by @joemugen in https://github.com/YieldStudio/laravel-expo-notifier/pull/25
+
+### New Contributors
+
+* @joemugen made their first contribution in https://github.com/YieldStudio/laravel-expo-notifier/pull/25
+
+**Full Changelog**: https://github.com/YieldStudio/laravel-expo-notifier/compare/0.0.10...0.0.11
+
 ## 0.0.10 - 2023-11-15
 
 ### What's Changed
