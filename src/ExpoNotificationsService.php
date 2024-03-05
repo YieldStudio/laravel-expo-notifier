@@ -21,8 +21,6 @@ use YieldStudio\LaravelExpoNotifier\Exceptions\ExpoNotificationsException;
 
 final class ExpoNotificationsService implements ExpoNotificationsServiceInterface
 {
-    public const PUSH_NOTIFICATIONS_PER_REQUEST_LIMIT = 100;
-
     public const SEND_NOTIFICATION_ENDPOINT = '/send';
 
     private PendingRequest $http;
@@ -35,12 +33,16 @@ final class ExpoNotificationsService implements ExpoNotificationsServiceInterfac
 
     private Collection $tickets;
 
+    private int $pushNotificationsPerRequestLimit;
+
     public function __construct(
         string $apiUrl,
         string $host,
         protected readonly ExpoPendingNotificationStorageInterface $notificationStorage,
         protected readonly ExpoTicketStorageInterface $ticketStorage
     ) {
+        $this->pushNotificationsPerRequestLimit = config('expo-notifications.service.limits.push_notifications_per_request');
+
         $this->http = Http::withHeaders([
             'host' => $host,
             'accept' => 'application/json',
@@ -148,7 +150,7 @@ final class ExpoNotificationsService implements ExpoNotificationsServiceInterfac
             ->values();
 
         // Splits into multiples chunks of max limitation
-        $this->notificationChunks = $this->notificationsToSend->chunk(self::PUSH_NOTIFICATIONS_PER_REQUEST_LIMIT);
+        $this->notificationChunks = $this->notificationsToSend->chunk($this->pushNotificationsPerRequestLimit);
 
         return $this;
     }

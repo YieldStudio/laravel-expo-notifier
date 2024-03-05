@@ -25,5 +25,9 @@ return [
     'service' => [
         'api_url' => 'https://exp.host/--/api/v2/push',
         'host' => 'exp.host',
+        'limits' => [
+            // https://docs.expo.dev/push-notifications/sending-notifications/#request-errors
+            'push_notifications_per_request' => (int) env('EXPO_PUSH_NOTIFICATIONS_PER_REQUEST_LIMIT', 99),
+        ],
     ],
 ];
