@@ -20,6 +20,9 @@ You must publish the configuration file with:
 php artisan vendor:publish --provider="YieldStudio\LaravelExpoNotifier\ExpoNotificationsServiceProvider" --tag="expo-notifications-config" --tag="expo-notifications-migration"
 ```
 
+### Available environment variables
+- `EXPO_PUSH_NOTIFICATIONS_PER_REQUEST_LIMIT` : sets the max notifications sent on a bulk request. [The official documentation says the limit should be 100](https://docs.expo.dev/push-notifications/sending-notifications/#request-errors) but in fact it's failing. You can tweak it by setting a value under 100.
+
 ## Usage
 
 ### Send notification
