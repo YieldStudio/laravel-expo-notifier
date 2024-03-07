@@ -4,6 +4,14 @@ All notable changes to `laravel-expo-notifier` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 0.0.12 - 2024-03-07
+
+### What's Changed
+
+* feat(config): makes the push notifications per request limit configurable by @joemugen in https://github.com/YieldStudio/laravel-expo-notifier/pull/26
+
+**Full Changelog**: https://github.com/YieldStudio/laravel-expo-notifier/compare/0.0.11...0.0.12
+
 ## 0.0.11 - 2024-02-16
 
 ### What's Changed
