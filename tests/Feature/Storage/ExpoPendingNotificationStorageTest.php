@@ -14,11 +14,11 @@ beforeEach(function () {
 
     for ($i = 0; $i < 120; $i++) {
         $this->expoMessages[$i] = ExpoMessage::create()
-            ->to([fake()->uuid])
-            ->title(fake()->sentence)
-            ->body(fake()->paragraph)
-            ->jsonData(['foo' => fake()->slug])
-            ->shouldBatch(fake()->boolean)
+            ->to([$this->fake()->uuid])
+            ->title($this->fake()->sentence)
+            ->body($this->fake()->paragraph)
+            ->jsonData(['foo' => $this->fake()->slug])
+            ->shouldBatch($this->fake()->boolean)
             ->toJson();
     }
 
