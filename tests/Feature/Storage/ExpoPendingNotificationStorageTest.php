@@ -4,16 +4,27 @@ declare(strict_types=1);
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Collection;
+use YieldStudio\LaravelExpoNotifier\Dto\ExpoMessage;
 use YieldStudio\LaravelExpoNotifier\Models\ExpoNotification;
 
 uses(RefreshDatabase::class);
 
 beforeEach(function () {
+    $this->expoMessages = [];
+
+    for ($i = 0; $i < 120; $i++) {
+        $this->expoMessages[$i] = ExpoMessage::create()
+            ->to([fake()->uuid])
+            ->title(fake()->sentence)
+            ->body(fake()->paragraph)
+            ->jsonData(['foo' => fake()->slug])
+            ->shouldBatch(fake()->boolean)
+            ->toJson();
+    }
+
     for ($i = 0; $i < 120; $i++) {
         ExpoNotification::create([
-            'data' => json_encode([
-                'foo' => $this->fake()->slug,
-            ], JSON_THROW_ON_ERROR),
+            'data' => $this->expoMessages[$i],
         ]);
     }
 
@@ -28,12 +39,10 @@ it('retrieves notifications from storage', function () {
         ->toBeInstanceOf(Collection::class)
         ->and($retrievedNotifications->first()->id)
         ->toBe($this->notifications->first()->id)
-        ->and($retrievedNotifications->first()->message->foo)
-        ->toBe(json_decode($this->notifications->first()->data, true, 512, JSON_THROW_ON_ERROR)['foo'])
-        ->and($retrievedNotifications->get(2)->id)
-        ->toBe($this->notifications->get(2)->id)
-        ->and($retrievedNotifications->get(2)->message->foo)
-        ->toBe(json_decode($this->notifications->get(2)->data, true, 512, JSON_THROW_ON_ERROR)['foo']);
+        ->and($retrievedNotifications->first()->message->toJson())
+        ->toBe($this->expoMessages[0])
+        ->and($retrievedNotifications->get(1)->message->toJson())
+        ->toBe($this->expoMessages[1]);
 });
 
 it('retrieves a max of 100 notifications', function () {
