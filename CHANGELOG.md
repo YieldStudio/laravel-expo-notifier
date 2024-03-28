@@ -4,6 +4,15 @@ All notable changes to `laravel-expo-notifier` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 0.0.13 - 2024-03-28
+
+### What's Changed
+
+* fix: set jsonData when creating ExpoMessage from JSON by @joemugen in https://github.com/YieldStudio/laravel-expo-notifier/pull/30
+* feat: adds support for legacy FPM API use by @joemugen in https://github.com/YieldStudio/laravel-expo-notifier/pull/31
+
+**Full Changelog**: https://github.com/YieldStudio/laravel-expo-notifier/compare/0.0.12...0.0.13
+
 ## 0.0.12 - 2024-03-07
 
 ### What's Changed
