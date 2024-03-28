@@ -23,6 +23,8 @@ final class ExpoNotificationsService implements ExpoNotificationsServiceInterfac
 {
     public const SEND_NOTIFICATION_ENDPOINT = '/send';
 
+    public const USE_FCM_LEGACY_API_QUERY_PARAM = 'useFcmV1';
+
     private PendingRequest $http;
 
     private ?Collection $expoMessages;
@@ -49,6 +51,13 @@ final class ExpoNotificationsService implements ExpoNotificationsServiceInterfac
             'accept-encoding' => 'gzip, deflate',
             'content-type' => 'application/json',
         ])->baseUrl($apiUrl);
+
+        // https://expo.dev/blog/expo-adds-support-for-fcm-http-v1-api
+        if (config('expo-notifications.service.use_fcm_legacy_api')) {
+            $this->http->withQueryParameters([
+                self::USE_FCM_LEGACY_API_QUERY_PARAM => true,
+            ]);
+        }
 
         $this->tickets = collect();
     }

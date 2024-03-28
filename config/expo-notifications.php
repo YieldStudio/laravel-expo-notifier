@@ -29,5 +29,7 @@ return [
             // https://docs.expo.dev/push-notifications/sending-notifications/#request-errors
             'push_notifications_per_request' => (int) env('EXPO_PUSH_NOTIFICATIONS_PER_REQUEST_LIMIT', 99),
         ],
+        // https://expo.dev/blog/expo-adds-support-for-fcm-http-v1-api
+        'use_fcm_legacy_api' => (bool) env('EXPO_USE_FCM_LEGACY_API', false),
     ],
 ];
