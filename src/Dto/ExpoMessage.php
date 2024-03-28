@@ -185,6 +185,9 @@ final class ExpoMessage implements Arrayable, Jsonable
 
         $expoMessage = new self();
         foreach ($data as $key => $value) {
+            if ($key === 'data') {
+                $expoMessage->jsonData($value);
+            }
             $expoMessage->{$key} = $value;
         }
 
