@@ -22,7 +22,9 @@ class ExpoTicketStorageMysql implements ExpoTicketStorageInterface
 
     public function store(string $ticketId, string $token): ExpoTicketDto
     {
-        $expoTicket = ExpoTicket::create([
+        $expoTicket = ExpoTicket::firstOrCreate([
+            'ticket_id' => $ticketId,
+        ], [
             'ticket_id' => $ticketId,
             'token' => $token,
         ]);
