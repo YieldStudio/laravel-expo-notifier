@@ -4,6 +4,14 @@ All notable changes to `laravel-expo-notifier` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 0.0.15 - 2024-06-14
+
+### What's Changed
+
+* fix: prevent duplicate ticket_id received from expo by @dtangdev in https://github.com/YieldStudio/laravel-expo-notifier/pull/34
+
+**Full Changelog**: https://github.com/YieldStudio/laravel-expo-notifier/compare/0.0.14...0.0.15
+
 ## 0.0.13 - 2024-03-28
 
 ### What's Changed
