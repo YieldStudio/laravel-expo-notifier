@@ -26,10 +26,12 @@ final class ExpoNotificationsServiceProvider extends ServiceProvider
         $this->app->bind(ExpoNotificationsServiceInterface::class, function ($app) {
             $apiUrl = config('expo-notifications.service.api_url');
             $host = config('expo-notifications.service.host');
+            $accessToken = config('expo-notifications.service.access_token');
 
             return new ExpoNotificationsService(
                 $apiUrl,
                 $host,
+                $accessToken,
                 $app->make(ExpoPendingNotificationStorageInterface::class),
                 $app->make(ExpoTicketStorageInterface::class)
             );

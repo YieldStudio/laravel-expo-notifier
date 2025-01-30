@@ -36,6 +36,7 @@ class TestCase extends Orchestra
             return new FakeExpoNotificationsService(
                 'http://localhost', // won't be used, just here to respect the contract
                 'localhost', // won't be used, just here to respect the contract
+                null,
                 $app->make(ExpoPendingNotificationStorageInterface::class),
                 $app->make(ExpoTicketStorageInterface::class)
             );

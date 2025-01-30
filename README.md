@@ -22,6 +22,7 @@ php artisan vendor:publish --provider="YieldStudio\LaravelExpoNotifier\ExpoNotif
 
 ### Available environment variables
 - `EXPO_PUSH_NOTIFICATIONS_PER_REQUEST_LIMIT` : sets the max notifications sent on a bulk request. [The official documentation says the limit should be 100](https://docs.expo.dev/push-notifications/sending-notifications/#request-errors) but in fact it's failing. You can tweak it by setting a value under 100.
+- `EXPO_NOTIFICATIONS_ACCESS_TOKEN` : sets the Expo access token used to send notifications with an [additional layer of security](https://docs.expo.dev/push-notifications/sending-notifications/#additional-security). You can get your access token from [your Expo dashboard](https://expo.dev/accounts/[account]/settings/access-tokens).
 
 ## Usage
 
