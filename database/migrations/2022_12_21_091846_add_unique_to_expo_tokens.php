@@ -10,14 +10,14 @@ return new class() extends Migration
 {
     public function up(): void
     {
-        Schema::table('expo_tokens', function (Blueprint $table) {
+        Schema::table(config('expo-notifications.database.tokens_table_name', 'expo_tokens'), function (Blueprint $table) {
             $table->unique(['value', 'owner_type', 'owner_id']);
         });
     }
 
     public function down(): void
     {
-        Schema::table('expo_tokens', function (Blueprint $table) {
+        Schema::table(config('expo-notifications.database.tokens_table_name', 'expo_tokens'), function (Blueprint $table) {
             $table->dropUnique(['value', 'owner_type', 'owner_id']);
         });
     }
