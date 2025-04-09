@@ -37,6 +37,7 @@ final class FakeExpoNotificationsService implements ExpoNotificationsServiceInte
     public function __construct(
         string $apiUrl,
         string $host,
+        ?string $accessToken,
         /* @phpstan-ignore-next-line */
         private readonly ExpoPendingNotificationStorageInterface $notificationStorage,
         /* @phpstan-ignore-next-line */

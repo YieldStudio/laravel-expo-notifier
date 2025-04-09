@@ -12,6 +12,7 @@ interface ExpoNotificationsServiceInterface
     public function __construct(
         string $apiUrl,
         string $host,
+        ?string $accessToken,
         ExpoPendingNotificationStorageInterface $notificationStorage,
         ExpoTicketStorageInterface $ticketStorage
     );

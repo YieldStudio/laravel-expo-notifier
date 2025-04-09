@@ -40,17 +40,25 @@ final class ExpoNotificationsService implements ExpoNotificationsServiceInterfac
     public function __construct(
         string $apiUrl,
         string $host,
+        ?string $accessToken,
         protected readonly ExpoPendingNotificationStorageInterface $notificationStorage,
         protected readonly ExpoTicketStorageInterface $ticketStorage
     ) {
         $this->pushNotificationsPerRequestLimit = config('expo-notifications.service.limits.push_notifications_per_request');
 
-        $this->http = Http::withHeaders([
+        $headers = [
             'host' => $host,
             'accept' => 'application/json',
             'accept-encoding' => 'gzip, deflate',
             'content-type' => 'application/json',
-        ])->baseUrl($apiUrl);
+        ];
+
+        if ($accessToken) {
+            $headers['Authorization'] = 'Bearer ' . $accessToken;
+        }
+
+        $this->http = Http::withHeaders($headers)->baseUrl($apiUrl);
+
 
         // https://expo.dev/blog/expo-adds-support-for-fcm-http-v1-api
         if (config('expo-notifications.service.use_fcm_legacy_api')) {
