@@ -88,6 +88,13 @@ final class ExpoMessage implements Arrayable, Jsonable
 
         return $this;
     }
+    
+    public function sound(string $value): self
+    {
+        $this->sound = $value;
+
+        return $this;
+    }
 
     public function disableSound(): self
     {
