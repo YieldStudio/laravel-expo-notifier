@@ -32,7 +32,6 @@
     "nesbot/carbon": ">=2.62.1"
   },
   "require-dev": {
-    "ciareis/bypass": "^1.0",
     "dg/bypass-finals": "^1.4",
     "guzzlehttp/guzzle": "^7.8",
     "laravel/pint": "^1.3",
