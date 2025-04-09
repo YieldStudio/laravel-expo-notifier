@@ -14,7 +14,7 @@ final class ExpoTicket implements Arrayable
 
     public static function make(int|string $id, string $token): ExpoTicket
     {
-        return (new ExpoTicket())
+        return (new ExpoTicket)
             ->id($id)
             ->token($token);
     }

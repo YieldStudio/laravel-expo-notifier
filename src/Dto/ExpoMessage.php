@@ -47,7 +47,7 @@ final class ExpoMessage implements Arrayable, Jsonable
 
     public static function create(): ExpoMessage
     {
-        return new ExpoMessage();
+        return new ExpoMessage;
     }
 
     public function to(?array $value): self
@@ -183,7 +183,7 @@ final class ExpoMessage implements Arrayable, Jsonable
     {
         $data = json_decode($jsonData, true);
 
-        $expoMessage = new self();
+        $expoMessage = new self;
         foreach ($data as $key => $value) {
             if ($key === 'data') {
                 $expoMessage->jsonData($value);

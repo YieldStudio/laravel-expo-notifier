@@ -54,11 +54,10 @@ final class ExpoNotificationsService implements ExpoNotificationsServiceInterfac
         ];
 
         if ($accessToken) {
-            $headers['Authorization'] = 'Bearer ' . $accessToken;
+            $headers['Authorization'] = 'Bearer '.$accessToken;
         }
 
         $this->http = Http::withHeaders($headers)->baseUrl($apiUrl);
-
 
         // https://expo.dev/blog/expo-adds-support-for-fcm-http-v1-api
         if (config('expo-notifications.service.use_fcm_legacy_api')) {
@@ -107,7 +106,7 @@ final class ExpoNotificationsService implements ExpoNotificationsServiceInterfac
         }
 
         return collect($data['data'])->map(function ($responseItem, $id) {
-            $data = (new PushReceiptResponse())
+            $data = (new PushReceiptResponse)
                 ->id($id)
                 ->status($responseItem['status']);
 
@@ -204,14 +203,14 @@ final class ExpoNotificationsService implements ExpoNotificationsServiceInterfac
             ->each(function ($responseItem) {
                 if ($responseItem['status'] === ExpoResponseStatus::ERROR->value) {
                     $this->tickets->push(
-                        (new PushTicketResponse())
+                        (new PushTicketResponse)
                             ->status($responseItem['status'])
                             ->message($responseItem['message'])
                             ->details($responseItem['details'])
                     );
                 } else {
                     $this->tickets->push(
-                        (new PushTicketResponse())
+                        (new PushTicketResponse)
                             ->status($responseItem['status'])
                             ->ticketId($responseItem['id'])
                     );

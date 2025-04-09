@@ -15,7 +15,7 @@ beforeEach(function () {
 
     for ($i = 0; $i < 120; $i++) {
         $this->messages->push(
-            (new ExpoMessage())
+            (new ExpoMessage)
                 ->to([Str::orderedUuid()->toString()])
                 ->title("A beautiful title #$i")
                 ->body('This is a content')
