@@ -4,6 +4,21 @@ All notable changes to `laravel-expo-notifier` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 0.0.16 - 2025-04-09
+
+### What's Changed
+
+* fix migration by @albertogferrario in https://github.com/YieldStudio/laravel-expo-notifier/pull/38
+* feat: Adds support for Expo access token by @lcrespin in https://github.com/YieldStudio/laravel-expo-notifier/pull/37
+* feat: Adds support for Laravel 12 by @dtangdev in https://github.com/YieldStudio/laravel-expo-notifier/pull/40
+
+### New Contributors
+
+* @albertogferrario made their first contribution in https://github.com/YieldStudio/laravel-expo-notifier/pull/38
+* @lcrespin made their first contribution in https://github.com/YieldStudio/laravel-expo-notifier/pull/37
+
+**Full Changelog**: https://github.com/YieldStudio/laravel-expo-notifier/compare/0.0.15...0.0.16
+
 ## 0.0.15 - 2024-06-14
 
 ### What's Changed
