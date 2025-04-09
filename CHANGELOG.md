@@ -4,6 +4,18 @@ All notable changes to `laravel-expo-notifier` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 0.0.17 - 2025-04-09
+
+### What's Changed
+
+* Update ExpoMessage.php by @rustemsarica in https://github.com/YieldStudio/laravel-expo-notifier/pull/39
+
+### New Contributors
+
+* @rustemsarica made their first contribution in https://github.com/YieldStudio/laravel-expo-notifier/pull/39
+
+**Full Changelog**: https://github.com/YieldStudio/laravel-expo-notifier/compare/0.0.16...0.0.17
+
 ## 0.0.16 - 2025-04-09
 
 ### What's Changed
