@@ -144,14 +144,14 @@ final class FakeExpoNotificationsService implements ExpoNotificationsServiceInte
             ->each(function ($responseItem) {
                 if ($responseItem['status'] === ExpoResponseStatus::ERROR->value) {
                     $this->tickets->push(
-                        (new PushTicketResponse())
+                        (new PushTicketResponse)
                             ->status($responseItem['status'])
                             ->message($responseItem['message'])
                             ->details($responseItem['details'])
                     );
                 } else {
                     $this->tickets->push(
-                        (new PushTicketResponse())
+                        (new PushTicketResponse)
                             ->status($responseItem['status'])
                             ->ticketId($responseItem['id'])
                     );

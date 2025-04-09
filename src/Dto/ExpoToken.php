@@ -17,7 +17,7 @@ final class ExpoToken implements Arrayable
 
     public static function make(int|string $id, string $value, Model $owner): ExpoToken
     {
-        return (new ExpoToken())
+        return (new ExpoToken)
             ->id($id)
             ->value($value)
             ->owner($owner);

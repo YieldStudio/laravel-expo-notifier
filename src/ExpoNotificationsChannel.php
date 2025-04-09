@@ -13,8 +13,7 @@ final class ExpoNotificationsChannel
 {
     public function __construct(
         protected readonly ExpoNotificationsServiceInterface $expoNotificationsService,
-    ) {
-    }
+    ) {}
 
     /**
      * @throws ExpoNotificationsException

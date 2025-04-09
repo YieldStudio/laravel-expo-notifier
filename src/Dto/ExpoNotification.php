@@ -14,7 +14,7 @@ final class ExpoNotification implements Arrayable
 
     public static function make(int|string $id, ExpoMessage $message): ExpoNotification
     {
-        return (new ExpoNotification())
+        return (new ExpoNotification)
             ->id($id)
             ->message($message);
     }
