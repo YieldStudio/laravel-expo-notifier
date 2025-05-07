@@ -12,22 +12,24 @@ use YieldStudio\LaravelExpoNotifier\Models\ExpoNotification;
 
 class ExpoPendingNotificationStorageMysql implements ExpoPendingNotificationStorageInterface
 {
-    public function store(ExpoMessage $expoMessage): ExpoNotificationDto
+    public function store(ExpoMessage $expoMessage, bool $sent = false): ExpoNotificationDto
     {
         $notification = ExpoNotification::create([
             'data' => $expoMessage->toJson(),
+            'sent' => $sent,
         ]);
 
-        return ExpoNotificationDto::make($notification->id, $expoMessage);
+        return ExpoNotificationDto::make($notification->id, $expoMessage, $sent);
     }
 
-    public function retrieve(int $amount = 100): Collection
+    public function retrieve(int $amount = 100, bool $sent = false): Collection
     {
         return ExpoNotification::query()
+            ->where('sent', $sent)
             ->take($amount)
             ->get()
             ->map(function ($notification) {
-                return ExpoNotificationDto::make($notification->id, ExpoMessage::fromJson($notification->data));
+                return ExpoNotificationDto::make($notification->id, ExpoMessage::fromJson($notification->data), (bool) $notification->sent);
             });
     }
 
@@ -36,8 +38,13 @@ class ExpoPendingNotificationStorageMysql implements ExpoPendingNotificationStor
         ExpoNotification::query()->whereIn('id', $ids)->delete();
     }
 
+    public function updateSent(array $ids, bool $sent = true): void
+    {
+        ExpoNotification::query()->whereIn('id', $ids)->update(['sent' => $sent]);
+    }
+
     public function count(): int
     {
-        return ExpoNotification::query()->count();
+        return ExpoNotification::query()->where('sent', false)->count();
     }
 }

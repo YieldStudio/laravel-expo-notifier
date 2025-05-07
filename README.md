@@ -54,6 +54,7 @@ class NewSampleNotification extends Notification
     public function toExpoNotification($notifiable): ExpoMessage
     {
         return (new ExpoMessage())
+            // ->to($notifiable->expoTokens->pluck('value')->toArray()) if using HasManyExpoToken
             ->to([$notifiable->expoTokens->value])
             ->title('A beautiful title')
             ->body('This is a content')
@@ -67,6 +68,11 @@ class NewSampleNotification extends Notification
 Send database pending notifications
 ```
 php artisan expo:notifications:send
+```
+
+Clean sent notification from database
+```
+php artisan expo:notifications:clear
 ```
 
 Clean tickets from outdated tokens
