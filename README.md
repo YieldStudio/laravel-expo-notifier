@@ -26,6 +26,13 @@ php artisan vendor:publish --provider="YieldStudio\LaravelExpoNotifier\ExpoNotif
 
 ## Usage
 
+### Add relation for notifiable class
+
+In order to use Notification, you need to declare the relation `expoTokens` on your Notifiable class.
+Two Trait are available to help you :
+- `HasUniqueExpoToken` if your notifiable class can have only one expo token
+- `HasManyExpoToken` if your notifiable class can have many expo token
+
 ### Send notification
 
 ```php
