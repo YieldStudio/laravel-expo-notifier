@@ -6,6 +6,7 @@ namespace YieldStudio\LaravelExpoNotifier\Dto;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @see https://github.com/Alymosul/laravel-exponent-push-notifications/blob/master/src/ExpoMessage.php
@@ -44,6 +45,8 @@ final class ExpoMessage implements Arrayable, Jsonable
     public bool $mutableContent = false;
 
     public bool $shouldBatch = false;
+
+    public ?Model $notifiable = null;
 
     public static function create(): ExpoMessage
     {
@@ -155,6 +158,13 @@ final class ExpoMessage implements Arrayable, Jsonable
     public function shouldBatch(bool $shouldBatch = true): self
     {
         $this->shouldBatch = $shouldBatch;
+
+        return $this;
+    }
+
+    public function notifiable(Model $notifiable = null): self
+    {
+        $this->notifiable = $notifiable;
 
         return $this;
     }

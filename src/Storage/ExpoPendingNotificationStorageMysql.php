@@ -17,6 +17,8 @@ class ExpoPendingNotificationStorageMysql implements ExpoPendingNotificationStor
         $notification = ExpoNotification::create([
             'data' => $expoMessage->toJson(),
             'sent' => $sent,
+            'receiver_type' => $expoMessage->notifiable?->getMorphClass(),
+            'receiver_id' => $expoMessage->notifiable?->getKey(),
         ]);
 
         return ExpoNotificationDto::make($notification->id, $expoMessage, $sent);

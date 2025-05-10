@@ -56,6 +56,7 @@ class NewSampleNotification extends Notification
         return (new ExpoMessage())
             // ->to($notifiable->expoTokens->pluck('value')->toArray()) if using HasManyExpoToken
             ->to([$notifiable->expoTokens->value])
+            ->notifiable($notifiable) // allow possibility to store the receiver of the notification
             ->title('A beautiful title')
             ->body('This is a content')
             ->channelId('default');
