@@ -11,7 +11,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table(config('expo-notifications.database.notifications_table_name', 'expo_notifications'), function (Blueprint $table) {
-            $table->morphs('receiver');
+            $table->nullableMorphs('receiver');
         });
     }
 
