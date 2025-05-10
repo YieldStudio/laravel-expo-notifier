@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoNotificationsServiceInterface;
+use YieldStudio\LaravelExpoNotifier\Contracts\ExpoPendingNotificationStorageInterface;
 use YieldStudio\LaravelExpoNotifier\Contracts\ExpoTicketStorageInterface;
 use YieldStudio\LaravelExpoNotifier\Dto\ExpoMessage;
 
@@ -32,4 +33,14 @@ it("creates 2 chunks if we're sending 20 notifications above limit", function ()
     expect($count)->toBe(2)
         ->and(app(ExpoTicketStorageInterface::class)->count())
         ->toBe($this->messages->count());
+});
+
+it("store sent notification when not using batched expo message", function () {
+    $this->notificationService->notify($this->messages);
+    $sentNotification = app(ExpoPendingNotificationStorageInterface::class)->retrieve(150, true);
+
+    expect($sentNotification->count())
+        ->toBe(120)
+        ->and($sentNotification->value('sent'))
+        ->toBeTrue();
 });

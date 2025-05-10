@@ -162,11 +162,12 @@ final class ExpoNotificationsService implements ExpoNotificationsServiceInterfac
     {
         $this->notificationsToSend = $this->expoMessages
             ->reject(fn (ExpoMessage $message) => $message->shouldBatch)
-            ->map(fn (ExpoMessage $message) => $message->toExpoData())
             ->values();
 
         // Splits into multiples chunks of max limitation
-        $this->notificationChunks = $this->notificationsToSend->chunk($this->pushNotificationsPerRequestLimit);
+        $this->notificationChunks = $this->notificationsToSend
+            ->map(fn (ExpoMessage $message) => $message->toExpoData())
+            ->chunk($this->pushNotificationsPerRequestLimit);
 
         return $this;
     }
@@ -182,6 +183,7 @@ final class ExpoNotificationsService implements ExpoNotificationsServiceInterfac
                 fn ($chunk, $index) => $this->sendNotificationsChunk($chunk->toArray())
             );
 
+        $this->storeSentNotifications();
         $this->checkAndStoreTickets($this->notificationsToSend->pluck('to')->flatten());
 
         return $this->tickets;
@@ -218,6 +220,11 @@ final class ExpoNotificationsService implements ExpoNotificationsServiceInterfac
             });
 
         return $this;
+    }
+
+    private function storeSentNotifications(): void
+    {
+        $this->notificationsToSend->each(fn (ExpoMessage $message) => $this->notificationStorage->store($message, true));
     }
 
     private function sendNotificationsChunk(array $chunk)

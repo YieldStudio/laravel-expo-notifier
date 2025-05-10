@@ -12,11 +12,14 @@ final class ExpoNotification implements Arrayable
 
     public ExpoMessage $message;
 
-    public static function make(int|string $id, ExpoMessage $message): ExpoNotification
+    public bool $sent;
+
+    public static function make(int|string $id, ExpoMessage $message, bool $sent): ExpoNotification
     {
         return (new ExpoNotification)
             ->id($id)
-            ->message($message);
+            ->message($message)
+            ->sent($sent);
     }
 
     public function id(int|string $value): self
@@ -33,11 +36,19 @@ final class ExpoNotification implements Arrayable
         return $this;
     }
 
+    public function sent(bool $value): self
+    {
+        $this->sent = $value;
+
+        return $this;
+    }
+
     public function toArray(): array
     {
         return [
             'id' => $this->id,
             'expo_message' => $this->message,
+            'sent' => $this->sent,
         ];
     }
 }

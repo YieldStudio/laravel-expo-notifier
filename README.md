@@ -26,6 +26,13 @@ php artisan vendor:publish --provider="YieldStudio\LaravelExpoNotifier\ExpoNotif
 
 ## Usage
 
+### Add relation for notifiable class
+
+In order to use Notification, you need to declare the relation `expoTokens` on your Notifiable class.
+Two Trait are available to help you :
+- `HasUniqueExpoToken` if your notifiable class can have only one expo token
+- `HasManyExpoToken` if your notifiable class can have many expo token
+
 ### Send notification
 
 ```php
@@ -47,7 +54,9 @@ class NewSampleNotification extends Notification
     public function toExpoNotification($notifiable): ExpoMessage
     {
         return (new ExpoMessage())
+            // ->to($notifiable->expoTokens->pluck('value')->toArray()) if using HasManyExpoToken
             ->to([$notifiable->expoTokens->value])
+            ->notifiable($notifiable) // allow possibility to store the receiver of the notification
             ->title('A beautiful title')
             ->body('This is a content')
             ->channelId('default');
@@ -60,6 +69,11 @@ class NewSampleNotification extends Notification
 Send database pending notifications
 ```
 php artisan expo:notifications:send
+```
+
+Clean sent notification from database
+```
+php artisan expo:notifications:clear
 ```
 
 Clean tickets from outdated tokens

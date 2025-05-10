@@ -70,11 +70,12 @@ final class FakeExpoNotificationsService implements ExpoNotificationsServiceInte
     {
         $this->notificationsToSend = $this->expoMessages
             ->reject(fn (ExpoMessage $message) => $message->shouldBatch)
-            ->map(fn (ExpoMessage $message) => $message->toExpoData())
             ->values();
 
         // Splits into multiples chunks of max limitation
-        $this->notificationChunks = $this->notificationsToSend->chunk(self::PUSH_NOTIFICATIONS_PER_REQUEST_LIMIT);
+        $this->notificationChunks = $this->notificationsToSend
+            ->map(fn (ExpoMessage $message) => $message->toExpoData())
+            ->chunk(self::PUSH_NOTIFICATIONS_PER_REQUEST_LIMIT);
 
         return $this;
     }
@@ -99,6 +100,7 @@ final class FakeExpoNotificationsService implements ExpoNotificationsServiceInte
                 fn ($chunk, $index) => $this->sendNotificationsChunk($chunk->toArray(), $index)
             );
 
+        $this->storeSentNotifications();
         $this->checkAndStoreTickets($this->notificationsToSend->pluck('to')->flatten());
 
         return $this->tickets;
@@ -159,6 +161,11 @@ final class FakeExpoNotificationsService implements ExpoNotificationsServiceInte
             });
 
         return $this;
+    }
+
+    private function storeSentNotifications(): void
+    {
+        $this->notificationsToSend->each(fn (ExpoMessage $message) => $this->notificationStorage->store($message, true));
     }
 
     /**
