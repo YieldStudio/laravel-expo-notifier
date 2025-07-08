@@ -26,6 +26,43 @@ php artisan vendor:publish --provider="YieldStudio\LaravelExpoNotifier\ExpoNotif
 
 ## Usage
 
+### Make ExpoToken model
+
+```
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+
+class ExpoToken extends Model
+{
+    protected $fillable = [
+        'owner_type',
+        'owner_id',
+        'value',
+    ];
+
+    /**
+     * Get the parent imageable model (user or post).
+     */
+    public function owner(): MorphTo
+    {
+        return $this->morphTo();
+    }
+}
+```
+
+### Add token to User model
+
+```
+public function expoTokens(): MorphOne
+{
+    return $this->morphOne(ExpoToken::class, 'owner');
+}
+```
+
 ### Send notification
 
 ```php
