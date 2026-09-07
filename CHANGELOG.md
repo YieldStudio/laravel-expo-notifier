@@ -4,6 +4,12 @@ All notable changes to `laravel-expo-notifier` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## Unreleased
+
+### What's Changed
+
+- Add support for Laravel and Illuminate 13.
+
 ## 0.0.17 - 2025-04-09
 
 ### What's Changed
